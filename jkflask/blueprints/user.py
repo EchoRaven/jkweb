@@ -11,8 +11,10 @@ mdict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 
 # 402是用户名或密码输入格式错误
-@bp.route('/login', methods=['POST'])
+@bp.route('/login', methods=['POST', 'GET'])
 def login():
+    if request.method == 'OPTION':
+        pass
     form = LoginForm(request.form)
     print(form.password.data)
     print(form.username.data)
@@ -31,8 +33,10 @@ def login():
         return '403'
 
 
-@bp.route('/mail', methods=['POST'])
+@bp.route('/mail', methods=['POST', 'GET'])
 def send_mail():
+    if request.method == 'OPTION':
+        pass
     form = RegisterForm(request.form)
     email = form.email.data
     vcode = ''.join(random.sample(mdict, 4))
@@ -59,15 +63,17 @@ def send_mail():
 
 
 # 400是注册成功，401是注册失败
-@bp.route('/register', methods=['POST'])
+@bp.route('/register', methods=['POST', 'GET'])
 def register():
+    if request.method == 'OPTION':
+        pass
     form = RegisterForm(request.form)
     if form.validate():
         email = form.email.data
         username = form.username.data
         password = form.password.data
         vcode = form.vcode.data
-        user = UserInfo(email=email, username=username, password=password,vcode=vcode)
+        user = UserInfo(email=email, username=username, password=password, vcode=vcode)
         db.session.add(user)
         db.session.commit()
         return '400'

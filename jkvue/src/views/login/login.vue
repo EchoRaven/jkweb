@@ -51,6 +51,7 @@ export default {
                 let params = new URLSearchParams();
                 params.append('username', this.username);
                 params.append('password', this.password);
+                console.log(this.username + " " + this.password);
                 this.axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
                     console.log(res.data)
                     console.log(typeof res.data)
@@ -119,7 +120,6 @@ export default {
                         n4++;
                     } else {
                         this.show_ball_3 = true;
-
                         clearInterval(timer);
                     }
                 }, 10);
