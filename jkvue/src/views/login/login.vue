@@ -10,7 +10,7 @@
             <span class="ball_2_title" v-show="show_ball_2">Sign In</span>
         </button>
         <button id="ball_3" v-show="show_ball" v-on:click="ToRegister">
-            <span class="ball_3_title" v-show="show_ball_3">Sign Up</span>
+            <span class="ball_3_title" v-show="show_ball_3">Go To Sign Up</span>
             <!--这个同时也是sign up按钮-->
         </button>
         <form class="login_form" v-show="show_b">
@@ -171,6 +171,24 @@ export default {
 </script>
 
 <style>
+@keyframes flashing {
+    0% {
+        box-shadow: 0px 0px 0px cyan;
+        border-color: aliceblue;
+    }
+
+    50% {
+        box-shadow: 0px 0px 40px cyan;
+        border-color: aliceblue;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px cyan;
+        border-color: aliceblue;
+    }
+
+}
+
 #login_ball {
     margin-top: 150px;
     height: 400px;
@@ -178,15 +196,17 @@ export default {
     margin-left: 550px;
     position: fixed;
     border-radius: 400px;
-    box-shadow: 0px 0px 20px cyan;
-    border-color: aliceblue;
+    animation: flashing 2s infinite alternate;
     color: rgb(73, 64, 64);
-    font-size: 70px;
 }
 
 .login_form {
     margin-top: 400px;
     position: fixed;
+}
+
+.login_title {
+    font-size: 70px;
 }
 
 #ball_1 {
@@ -196,8 +216,7 @@ export default {
     width: 50px;
     border-radius: 50px;
     position: fixed;
-    box-shadow: 0px 0px 20px cyan;
-    border-color: aliceblue;
+    animation: flashing 2s infinite alternate;
 }
 
 #ball_2 {
@@ -207,8 +226,7 @@ export default {
     width: 50px;
     border-radius: 50px;
     position: fixed;
-    box-shadow: 0px 0px 20px cyan;
-    border-color: aliceblue;
+    animation: flashing 2s infinite alternate;
 }
 
 #ball_3 {
@@ -218,8 +236,7 @@ export default {
     width: 50px;
     border-radius: 50px;
     position: fixed;
-    box-shadow: 0px 0px 20px cyan;
-    border-color: aliceblue;
+    animation: flashing 2s infinite alternate;
 }
 
 #username {
@@ -265,15 +282,12 @@ export default {
     font-size: 25px;
     color: cornflowerblue;
     text-align: center;
-    text-shadow: 0px 0px 5px cyan;
-
 }
 
 .ball_3_title {
     font-size: 25px;
     color: cornflowerblue;
     text-align: center;
-    text-shadow: 0px 0px 5px cyan;
 }
 
 body {
