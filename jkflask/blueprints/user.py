@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from exts import mail, db
 from flask_mail import Message
 import random
-from forms import RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm, EmailForm
 from models import UserInfo, EmailInfo
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -37,29 +37,32 @@ def login():
 def send_mail():
     if request.method == 'OPTION':
         pass
-    form = RegisterForm(request.form)
-    email = form.email.data
-    vcode = ''.join(random.sample(mdict, 4))
-    print(vcode)
-    print(email)
-    message = Message(
-        subject="jkweb验证码",
-        recipients=[email],
-        body="验证码为" + vcode
-    )
-    try:
-        mail.send(message)
-    except:
-        return "406"
-    v_exist = EmailInfo.query.filter_by(email=email).first()
-    if v_exist:
-        v_exist.vcode = vcode
-        db.session.commit()
+    form = EmailForm(request.form)
+    if form.validate():
+        email = form.email.data
+        vcode = ''.join(random.sample(mdict, 4))
+        print(vcode)
+        print(email)
+        message = Message(
+            subject="jkweb验证码",
+            recipients=[email],
+            body="验证码为" + vcode
+        )
+        try:
+            mail.send(message)
+        except:
+            return "406"
+        v_exist = EmailInfo.query.filter_by(email=email).first()
+        if v_exist:
+            return "408"
+        else:
+            vmodel = EmailInfo(email=email, vcode=vcode)
+            db.session.add(vmodel)
+            db.session.commit()
+            return "407"
     else:
-        vmodel = EmailInfo(email=email, vcode=vcode)
-        db.session.add(vmodel)
-        db.session.commit()
-    return '407'
+        print("邮箱格式错误")
+        return "409"
 
 
 # 400是注册成功，401是注册失败

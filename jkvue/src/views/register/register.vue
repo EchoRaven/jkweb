@@ -77,6 +77,16 @@ export default {
                         this.line_shake()
                     } else if (res.data == 407) {
                         console.log(res.data)
+                        this.regtishi = "Vcode Has Been Sent To Your Email"
+                        this.showregTishi = true;
+                    } else if (res.data == 408) {
+                        this.regtishi = "The Email Is Already Registered"
+                        this.showregTishi = true
+                        this.line_shake()
+                    } else if (res.data == 409) {
+                        this.regtishi = "The Eail Format Is Incorrect"
+                        this.showregTishi = true
+                        this.line_shake()
                     }
                 })
             }

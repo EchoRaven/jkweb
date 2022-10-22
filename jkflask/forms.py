@@ -22,9 +22,6 @@ class RegisterForm(wtforms.Form):
             raise wtforms.ValidationError("验证码错误")
 
 
-    def validate_email(self, field):
-        temail = field.data
-        email_m = UserInfo.query.filter_by(email=temail).first()
-        if email_m:
-            raise wtforms.ValidationError("该邮箱已注册过账户")
+class EmailForm(wtforms.Form):
+    email = wtforms.StringField(validators=[email()])
 
