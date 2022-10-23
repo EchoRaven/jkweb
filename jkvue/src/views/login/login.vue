@@ -1,5 +1,7 @@
 <template>
     <div class="login_board">
+        <video class="video-background" preload="auto" loop playsinline autoplay src="../../video/loginbck.mp4"
+            muted="muted"></video>
         <button id="login_ball" v-on:click="show_board">
             <span class="login_title" v-show="show_login">Login</span>
         </button>
@@ -16,7 +18,6 @@
         <form class="login_form" v-show="show_b">
             <p class="Tishi" v-show="showTishi">{{tishi}}</p>
             <input class="input" type="text" id="username" placeholder="username" v-model="username">
-            <br />
             <input class="input" type="password" id="password" placeholder="password" v-model="password">
         </form>
     </div>
@@ -98,10 +99,10 @@ export default {
             if (this.canclick) {
                 var timer = setInterval(() => {
                     this.show_login = false;
-                    if (n1 <= 35) {
-                        login_ball.style.height = (400 - n1 * 10) + 'px';
-                        login_ball.style.width = (400 - n1 * 10) + 'px';
-                        login_ball.style.radius = (400 - n1 * 10) + 'px';
+                    if (n1 <= 25) {
+                        login_ball.style.height = (300 - n1 * 10) + 'px';
+                        login_ball.style.width = (300 - n1 * 10) + 'px';
+                        login_ball.style.radius = (300 - n1 * 10) + 'px';
                         n1++;
                     } else if (n2 <= 20) {
                         this.show_ball = true;
@@ -191,11 +192,11 @@ export default {
 
 #login_ball {
     margin-top: 150px;
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
     margin-left: 550px;
     position: fixed;
-    border-radius: 400px;
+    border-radius: 300px;
     animation: flashing 2s infinite alternate;
     color: rgb(73, 64, 64);
 }
@@ -206,7 +207,7 @@ export default {
 }
 
 .login_title {
-    font-size: 70px;
+    font-size: 60px;
 }
 
 #ball_1 {
@@ -251,7 +252,7 @@ export default {
 }
 
 #password {
-    margin-top: 255px;
+    margin-top: 275px;
     margin-left: 620px;
     border: none;
     position: fixed;
@@ -297,6 +298,11 @@ body {
     margin-right: 0px;
     margin-bottom: 0px;
     margin-left: 0px;
-    background-color: black;
+}
+
+.video-background {
+    position: fixed;
+    overflow: hidden;
+    background-size: cover;
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
     <div class="reg_board">
+        <video class="video-background" preload="auto" loop playsinline autoplay src="../../video/loginbck.mp4"
+            muted="muted"></video>
         <button id="reg_ball" v-on:click="show_board">
             <span class="reg_title" v-show="show_reg">Register</span>
             <!--这同时也是username的按钮-->
@@ -130,10 +132,10 @@ export default {
             if (this.canclick) {
                 var timer = setInterval(() => {
                     this.show_reg = false;
-                    if (n1 <= 35) {
-                        reg_ball.style.height = (400 - n1 * 10) + 'px';
-                        reg_ball.style.width = (400 - n1 * 10) + 'px';
-                        reg_ball.style.radius = (400 - n1 * 10) + 'px';
+                    if (n1 <= 25) {
+                        reg_ball.style.height = (300 - n1 * 10) + 'px';
+                        reg_ball.style.width = (300 - n1 * 10) + 'px';
+                        reg_ball.style.radius = (300 - n1 * 10) + 'px';
                         n1++;
                     } else if (n2 <= 20) {
                         this.show_ball = true;
@@ -261,11 +263,11 @@ export default {
 
 #reg_ball {
     margin-top: 150px;
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
     margin-left: 550px;
     position: fixed;
-    border-radius: 400px;
+    border-radius: 300px;
     animation: flashing 2s infinite alternate;
     color: rgb(73, 64, 64);
 }
@@ -275,7 +277,7 @@ export default {
 }
 
 .reg_title {
-    font-size: 70px;
+    font-size: 60px;
 }
 
 #reg_ball_1 {
@@ -447,5 +449,11 @@ body {
     font-size: 30px;
     color: rgb(154, 151, 151);
     background-color: black;
+}
+
+.video-background {
+    position: fixed;
+    overflow: hidden;
+    background-size: cover;
 }
 </style>
