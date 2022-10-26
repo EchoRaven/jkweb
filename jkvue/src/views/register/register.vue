@@ -28,7 +28,7 @@
             <!--这个同时也是sign in按钮-->
         </button>
         <form class="reg_form" v-show="show_b">
-            <p class="Tishi" v-show="showregTishi">{{regtishi}}</p>
+            <p class="Tishi" v-show="showregTishi">{{ regtishi }}</p>
             <input class="input" type="text" id="newusername" placeholder="username" v-model="username">
             <input class="input" type="text" id="newpassword" placeholder="password" v-model="password">
             <input class="input" type="text" id="newemail" placeholder="email" v-model="email">

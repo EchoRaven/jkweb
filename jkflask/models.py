@@ -29,3 +29,18 @@ class EmailInfo(db.Model):
         self.email = email
         self.vcode = vcode
 
+
+# 文章信息包括：主键序号，文章题目，点击量，标签，创建时间
+class ArticalInfo(db.Model):
+    __tablename__ = "ArticalInfo"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=True, unique=False)
+    clicks = db.Column(db.Integer, nullable=True, unique=False, default=0)
+    tags = db.Column(db.String(200), nullable=False, unique=False)
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    content = db.Column(db.Text(4294967295), nullable=False, unique=False, default="<!DOCTYPE html><title>hahaha</title><body><p>hahaha</p></body>")
+
+    def __init__(self, title, clicks, tags):
+        self.email = title
+        self.vcode = clicks
+        self.tags = tags

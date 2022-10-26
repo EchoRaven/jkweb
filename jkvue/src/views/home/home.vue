@@ -18,6 +18,13 @@
             <span class="search_icon"></span>
             <span id="user">Us</span>
         </form>
+        <!--推荐页-->
+        <div class="recommand_li" v-for="(id, index) in recommand_list">
+            <button v-bind:id="recommandid(index)" v-on:click="goto_page(id)">
+                <!--这里应当放置的是标题与text内容-->
+                {{ title_list[index] }}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -30,11 +37,28 @@ export default {
             //选择的标签
             c_tags: [],
             //全部的标签
-            all_tags: ["science", "study", "work", "food", "arts", "news", "cpu", "physics", "music", "math", "foreign", "daily", "school"],
+            all_tags: ["science", "study", "work", "food", "arts", "news", "cpu", "physics", "music", "math", "foreign", "daily", "school", "base"],
+            //推荐列表
+            recommand_list: [],
+            title_list: []
         }
     },
     mounted() {
-        console.log("create");
+        //从数据库中请求，获取推荐列表
+        //搜索和推荐的文章格式应当是标题+文章部分内容，这里先用标题代替
+        //循环获取点击量前几个的文章
+        let params = new URLSearchParams();
+        this.axios.post("http://127.0.0.1:5000/recommand", params).then((res) => {
+            console.log(res.data['code']);
+            if (res.data['code'] == 410) {
+                var datalist = res.data['arts']
+                var titlelist = res.data['title']
+                for (var i = 0; i < datalist.length; ++i) {
+                    this.recommand_list.push(datalist[i]);
+                    this.title_list.push(titlelist[i]);
+                }
+            }
+        }, 10);
     },
     methods: {
         show_tag_list() {
@@ -44,7 +68,7 @@ export default {
                 var tgname = 'tag' + i;
                 var tg = document.getElementById(tgname).style;
                 tg.marginLeft = 5 + 84 * (i % 5) + 'px';
-                tg.marginTop = 5 + 43 * Math.floor(i / 5) + 'px';
+                tg.marginTop = 9 + 49 * Math.floor(i / 5) + 'px';
             }
         }, tagid(index) {
             return "tag" + index;
@@ -78,6 +102,25 @@ export default {
                 com.style.backgroundColor = "rgb(7, 197, 7)";
             }
             console.log(this.c_tags);
+        }, recommandid(index) {
+            return 'reco' + index;
+        }, form_title(tit) {
+            var res = [];
+            if (tit.length < 10) {
+                res = tit;
+            } else {
+                for (var i = 0; i < 10; ++i) {
+                    res.push(tit[i]);
+                }
+                for (var i = 0; i < 3; ++i) {
+                    res.push('.');
+                }
+            }
+            return res;
+        }, goto_page(index) {
+            setTimeout(function () {
+                this.$router.push({ name: "webs", params: { id: index } });
+            }.bind(this), 1000)
         }
     }
 }
@@ -204,5 +247,10 @@ export default {
     border-radius: 20px;
     border: solid;
     border-color: burlywood;
+    background: url(../../picture/button_board.png) no-repeat;
+}
+
+body {
+    background: url(../../picture/home_board.png) no-repeat;
 }
 </style>

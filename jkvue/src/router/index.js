@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import login from '@/views/login/login.vue'
 import register from '@/views/register/register.vue'
 import home from '@/views/home/home.vue'
+import write from '@/views/write/write.vue'
+import webs from '@/views/webs/webs.vue'
 
 Vue.use(Router)
 
@@ -24,6 +26,16 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    {
+      path: '/write',
+      name: 'write',
+      component: write
+    },
+    {
+      path: '/webs/:id',
+      name: 'webs',
+      component: webs
     }
   ]
 })
