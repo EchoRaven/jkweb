@@ -16,7 +16,7 @@
             <!--这个同时也是sign up按钮-->
         </button>
         <form class="login_form" v-show="show_b">
-            <p class="Tishi" v-show="showTishi">{{tishi}}</p>
+            <p class="Tishi" v-show="showTishi">{{ tishi }}</p>
             <input class="input" type="text" id="username" placeholder="username" v-model="username">
             <input class="input" type="password" id="password" placeholder="password" v-model="password">
         </form>
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { balloon } from 'cli-spinners'
 import { setCookie, getCookie } from '../../assets/js/cookie.js'
 export default {
     data() {
@@ -54,34 +53,33 @@ export default {
                 params.append('password', this.password);
                 console.log(this.username + " " + this.password);
                 this.axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
-                    console.log(res.data)
-                    console.log(typeof res.data)
-                    if (res.data == 405) {
+                    console.log(res.data['code'])
+                    if (res.data['code'] == 405) {
                         this.tishi = "user does not exist"
-                        console.log(res.data)
+                        console.log(res.data['code'])
                         this.showTishi = true
                         this.line_shake()
-                    } else if (res.data == 404) {
+                    } else if (res.data['code'] == 404) {
                         this.tishi = "False Password"
                         this.showTishi = true
-                        console.log(res.data)
+                        console.log(res.data['code'])
                         this.line_shake()
-                    } else if (res.data == 403) {
+                    } else if (res.data['code'] == 403) {
                         this.tishi = "False Form"
                         this.showTishi = true
-                        console.log(res.data)
+                        console.log(res.data['code'])
                         this.line_shake()
-                    } else if (res.data == "admin") {
+                    } else if (res.data['code'] == "admin") {
                         this.$router.push("/home")
-                        console.log(res.data)
-                    } else if (res.data == 402) {
+                        console.log(res.data['code'])
+                    } else if (res.data['code'] == 402) {
                         console.log('successful login')
                         this.tishi = "Successful Login"
                         this.showTishi = true
-                        console.log(res.data)
+                        console.log(res.data['code'])
                         setCookie("username", this.username, 1000 * 60)
                         setTimeout(function () {
-                            this.$router.push("/home")
+                            this.$router.push({ name: "home", params: { "uid": res.data['id'] } });
                         }.bind(this), 1000)
                     }
                 })

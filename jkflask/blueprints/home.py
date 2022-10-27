@@ -22,16 +22,18 @@ def recommand():
         info['code'] = '410'
         info['arts'] = []
         info['title'] = []
-        for i in range(10):
-            try:
-                info['arts'].append(li[i].id)
-                info['title'].append(li[i].title)
-            except:
+        cnt = 0
+        for ele in li:
+            info['arts'].append(ele.id)
+            info['title'].append(ele.title)
+            cnt = cnt + 1
+            if cnt >= 10:
                 break
     except:
         info['code'] = '411'
         info['arts'] = []
         info['title'] = []
+    print(info['arts'])
     return json.dumps(info, ensure_ascii=False)
 
 

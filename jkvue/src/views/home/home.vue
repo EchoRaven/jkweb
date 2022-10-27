@@ -16,14 +16,17 @@
             </div>
             <input type="text" class="input_search" v-model="search_content" />
             <span class="search_icon"></span>
-            <span id="user">Us</span>
+            <span id="user" v-on:click="goto_write">Us</span>
         </form>
         <!--推荐页-->
-        <div class="recommand_li" v-for="(id, index) in recommand_list">
-            <button v-bind:id="recommandid(index)" v-on:click="goto_page(id)">
-                <!--这里应当放置的是标题与text内容-->
-                {{ title_list[index] }}
-            </button>
+        <div class="recommand_board">
+            <div class="recommand_li" v-for="(id, index) in recommand_list">
+                <!--cover之后应有闪烁与方法效果-->
+                <button v-bind:id="recommandid(index)" v-on:click="goto_page(id)" class="rec_button">
+                    <!--这里应当放置的是标题与text内容-->
+                    {{ form_title(title_list[index]) }}
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +37,7 @@ export default {
         return {
             search_content: "",
             show_tag: false,
+            uid: -1,
             //选择的标签
             c_tags: [],
             //全部的标签
@@ -47,6 +51,7 @@ export default {
         //从数据库中请求，获取推荐列表
         //搜索和推荐的文章格式应当是标题+文章部分内容，这里先用标题代替
         //循环获取点击量前几个的文章
+        this.uid = this.$route.params.uid;
         let params = new URLSearchParams();
         this.axios.post("http://127.0.0.1:5000/recommand", params).then((res) => {
             console.log(res.data['code']);
@@ -105,21 +110,25 @@ export default {
         }, recommandid(index) {
             return 'reco' + index;
         }, form_title(tit) {
-            var res = [];
-            if (tit.length < 10) {
+            var res = "";
+            if (tit.length < 7) {
                 res = tit;
             } else {
-                for (var i = 0; i < 10; ++i) {
-                    res.push(tit[i]);
+                for (var i = 0; i < 7; ++i) {
+                    res += tit[i];
                 }
                 for (var i = 0; i < 3; ++i) {
-                    res.push('.');
+                    res += '.';
                 }
             }
             return res;
         }, goto_page(index) {
             setTimeout(function () {
                 this.$router.push({ name: "webs", params: { id: index } });
+            }.bind(this), 1000)
+        }, goto_write() {
+            setTimeout(function () {
+                this.$router.push({ name: "user", params: { uid: this.uid } });
             }.bind(this), 1000)
         }
     }
@@ -128,10 +137,13 @@ export default {
 
 <style>
 .search_form {
+    margin-top: -100px;
+    position: fixed;
     height: 80px;
     width: 100%;
     background: url("../../picture/search_board.png") no-repeat;
     background-size: cover;
+    z-index: 1000000;
 }
 
 * {
@@ -152,7 +164,7 @@ export default {
 
 #user {
     margin-top: 15px;
-    margin-left: 1600px;
+    margin-left: 1550px;
     height: 50px;
     width: 50px;
     border-radius: 50px;
@@ -216,7 +228,7 @@ export default {
 }
 
 .search_icon {
-    position: absolute;
+    position: fixed;
     width: 40px;
     height: 40px;
     border-radius: 40px;
@@ -252,5 +264,60 @@ export default {
 
 body {
     background: url(../../picture/home_board.png) no-repeat;
+    background-size: cover;
+}
+
+.rec_button {
+    background: url(../../picture/arrow.png) no-repeat;
+    background-size: 230%;
+    background-position: -50px -50px;
+    height: 100px;
+    width: 200px;
+    font-size: 20px;
+    font-weight: bolder;
+    border-color: transparent;
+    text-shadow: 2px 2px 5px red;
+}
+
+.rec_button:hover {
+    height: 150px;
+    width: 300px;
+    font-size: 30px;
+    animation: arrow_c 5s infinite alternate;
+}
+
+@keyframes arrow_c {
+    0% {
+        background: url(../../picture/arrow.png) no-repeat;
+        background-size: 230%;
+        background-position: -75px -75px;
+        text-shadow: 2px 2px 5px red;
+    }
+
+    50% {
+        background: url(../../picture/arrow_change.png) no-repeat;
+        background-size: 100%;
+        background-position: -40px -30px;
+        text-shadow: -2px -2px 10px rgb(78, 219, 39);
+    }
+
+    100% {
+        background: url(../../picture/arrow.png) no-repeat;
+        background-size: 230%;
+        background-position: -75px -75px;
+        text-shadow: 2px 2px 5px red;
+    }
+}
+
+.recommand_li {
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 900px;
+    background-color: white;
+}
+
+.recommand_board {
+    position: relative;
+    margin-top: 100px;
 }
 </style>

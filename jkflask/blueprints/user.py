@@ -4,6 +4,7 @@ from flask_mail import Message
 import random
 from forms import RegisterForm, LoginForm, EmailForm
 from models import UserInfo, EmailInfo
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -18,19 +19,24 @@ def login():
     form = LoginForm(request.form)
     print(form.password.data)
     print(form.username.data)
+    info = {}
+    info['id'] = "-1"
     if form.validate():
         username = form.username.data
         password = form.password.data
         user = UserInfo.query.filter_by(username=username).first()
         if user:
             if user.password == password:
-                return '402'
+                info['id'] = user.id
+                info['code'] = '402'
+
             else:
-                return '404'
+                info['code'] = '404'
         else:
-            return '405'
+            info['code'] = '405'
     else:
-        return '403'
+        info['code'] = '403'
+    return json.dumps(info, ensure_ascii=False)
 
 
 @bp.route('/mail', methods=['POST', 'GET'])

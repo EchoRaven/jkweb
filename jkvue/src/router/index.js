@@ -6,9 +6,13 @@ import register from '@/views/register/register.vue'
 import home from '@/views/home/home.vue'
 import write from '@/views/write/write.vue'
 import webs from '@/views/webs/webs.vue'
+import user from '@/views/user/user.vue'
 
 Vue.use(Router)
-
+const VueRouterPush = Router.prototype.push
+Router.prototype.push = function push(to) {
+  return VueRouterPush.call(this, to).catch(err => err)
+}
 /*配置路由*/
 export default new Router({
   routes: [
@@ -18,7 +22,7 @@ export default new Router({
       component: login
     },
     {
-      path: '/home',
+      path: '/home/:uid',
       name: 'home',
       component: home
     },
@@ -28,7 +32,7 @@ export default new Router({
       component: register
     },
     {
-      path: '/write',
+      path: '/write/:uid/:title',
       name: 'write',
       component: write
     },
@@ -36,6 +40,11 @@ export default new Router({
       path: '/webs/:id',
       name: 'webs',
       component: webs
+    },
+    {
+      path: '/user/:uid',
+      name: 'user',
+      component: user
     }
   ]
 })

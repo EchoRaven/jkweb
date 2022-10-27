@@ -10,6 +10,7 @@ class UserInfo(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     vcode = db.Column(db.String(10), nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
+    artical_num = db.Column(db.Integer, default=0)
 
     def __init__(self, username, password, email, vcode):
         self.username = username
@@ -39,6 +40,7 @@ class ArticalInfo(db.Model):
     tags = db.Column(db.String(200), nullable=False, unique=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     content = db.Column(db.Text(4294967295), nullable=False, unique=False, default="<!DOCTYPE html><title>hahaha</title><body><p>hahaha</p></body>")
+    uid = db.Column(db.Integer, nullable=True, unique=False)
 
     def __init__(self, title, clicks, tags):
         self.email = title

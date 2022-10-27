@@ -2,3 +2,5 @@
 
 储存文章中的数据库中涉及到tags的储存，这里使用string储存，格式为tag1,tag2,tag3,...
 用逗号分割，读取时将，去除即可
+
+articalInfo内容变化:增加作者词条(author) author中储存的是uid也就是userinfo中的id词条

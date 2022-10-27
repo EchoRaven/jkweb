@@ -4,9 +4,14 @@
   
 <script>
 import Marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
 import xss from 'xss'
 Marked.setOptions({
     renderer: new Marked.Renderer(),
+    highlight(code) {
+        return hljs.highlightAuto(code).value
+    },
     pedantic: false,
     gfm: true,
     tables: true,
@@ -32,6 +37,9 @@ export default {
         contentInner() {
             return Marked(this.content)
         }
+    },
+    created() { },
+    mounted() {
     },
     methods: {
         xss
