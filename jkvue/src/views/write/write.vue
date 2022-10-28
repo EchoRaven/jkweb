@@ -10,7 +10,6 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-
 export default {
     name: "",
     props: [],
@@ -23,19 +22,26 @@ export default {
             html: '',
             configs: {},
             title: '',
-            uid: -1
+            uid: -1,
+            tags: 'base',
         }
     },
     methods: {
         // 将图片上传到服务器，返回地址替换到md中
+        // 绑定@imgAdd event
         $imgAdd(pos, $file) {
-            let formdata = new FormData();
-
-            this.$upload.post('/上传接口地址', formdata).then(res => {
-                console.log(res.data);
+            // 第一步.将图片上传到服务器.
+            console.log($file);
+            var formdata = new FormData();
+            formdata.append('image', $file);
+            formdata.append('uid', this.uid);
+            formdata.append('title', this.title);
+            this.$axios({
+                url: 'http://127.0.0.1:5000/write/add_image',
+                method: 'post',
+                data: formdata
+            }).then(res => {
                 this.$refs.md.$img2Url(pos, res.data);
-            }).catch(err => {
-                console.log(err)
             })
         },
         // 所有操作都会被解析重新渲染
@@ -45,9 +51,25 @@ export default {
         },
         // 提交
         submit() {
-            console.log(this.content);
-            console.log(this.html);
             //将html转移至数据库的content中
+            let params = new URLSearchParams();
+            params.append('artical', this.html);
+            params.append('title', this.title);
+            params.append('uid', this.uid);
+            params.append('tags', this.tags);
+            this.$axios.post("http://127.0.0.1:5000/write/submit", params).then((res) => {
+                console.log(this.title);
+                console.log(this.uid);
+                console.log(this.tags);
+                console.log(this.html);
+                //接受返回值
+                if (res.data == 416) {
+                    console.log("文章发布成功");
+                }
+                else {
+                    console.log("文章发布失败");
+                }
+            });
         }
     },
     mounted() {

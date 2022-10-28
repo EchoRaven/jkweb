@@ -52,7 +52,7 @@ export default {
                 params.append('username', this.username);
                 params.append('password', this.password);
                 console.log(this.username + " " + this.password);
-                this.axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
+                this.$axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
                     console.log(res.data['code'])
                     if (res.data['code'] == 405) {
                         this.tishi = "user does not exist"

@@ -42,7 +42,8 @@ class ArticalInfo(db.Model):
     content = db.Column(db.Text(4294967295), nullable=False, unique=False, default="<!DOCTYPE html><title>hahaha</title><body><p>hahaha</p></body>")
     uid = db.Column(db.Integer, nullable=True, unique=False)
 
-    def __init__(self, title, clicks, tags):
-        self.email = title
-        self.vcode = clicks
+    def __init__(self, title, tags, content, uid):
         self.tags = tags
+        self.content = content
+        self.uid = uid
+        self.title = title

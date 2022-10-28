@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from models import ArticalInfo
 from sqlalchemy import desc
 import json
+from exts import db
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
@@ -47,6 +48,8 @@ def get_content():
     info['code'] = ''
     try:
         amodel = ArticalInfo.query.filter_by(id=index).first()
+        amodel.clicks = amodel.clicks + 1
+        db.session.commit()
         info['content'] = amodel.content
         info['code'] = '414'
     except:

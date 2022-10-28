@@ -16,7 +16,7 @@
             </div>
             <input type="text" class="input_search" v-model="search_content" />
             <span class="search_icon"></span>
-            <span id="user" v-on:click="goto_write">Us</span>
+            <button id="user" v-on:click="goto_write">Us</button>
         </form>
         <!--推荐页-->
         <div class="recommand_board">
@@ -53,7 +53,7 @@ export default {
         //循环获取点击量前几个的文章
         this.uid = this.$route.params.uid;
         let params = new URLSearchParams();
-        this.axios.post("http://127.0.0.1:5000/recommand", params).then((res) => {
+        this.$axios.post("http://127.0.0.1:5000/recommand", params).then((res) => {
             console.log(res.data['code']);
             if (res.data['code'] == 410) {
                 var datalist = res.data['arts']
@@ -114,7 +114,7 @@ export default {
             if (tit.length < 7) {
                 res = tit;
             } else {
-                for (var i = 0; i < 7; ++i) {
+                for (var i = 0; i < 6; ++i) {
                     res += tit[i];
                 }
                 for (var i = 0; i < 3; ++i) {
@@ -164,7 +164,7 @@ export default {
 
 #user {
     margin-top: 15px;
-    margin-left: 1550px;
+    margin-left: 1400px;
     height: 50px;
     width: 50px;
     border-radius: 50px;

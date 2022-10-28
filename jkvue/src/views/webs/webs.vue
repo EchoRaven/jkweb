@@ -1,14 +1,16 @@
 <template>
     <div>
-        <Content :content="content" />
+        <mavon-editor class="md" :value="content" :subfield="prop.subfield" :defaultOpen="prop.defaultOpen"
+            :toolbarsFlag="prop.toolbarsFlag" :editable="prop.editable" :scrollStyle="prop.scrollStyle" />
     </div>
 </template>
 
 <script>
-import Content from '@/components/content.vue'
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 export default {
     components: {
-        Content
+        mavonEditor,
     },
     data() {
         return {
@@ -22,15 +24,25 @@ export default {
         //content通过数据库获取
         let params = new URLSearchParams();
         params.append('id', this.id);
-        this.axios.post("http://127.0.0.1:5000/content", params).then((res) => {
+        this.$axios.post("http://127.0.0.1:5000/content", params).then((res) => {
             console.log(res.data['code']);
             if (res.data['code'] == 414) {
                 this.content = res.data['content'];
+                console.log(this.content);
             }
         })
-    }, methods: {
-
-    }
+    }, computed: {
+        prop() {
+            let data = {
+                subfield: false,// 单双栏模式
+                defaultOpen: 'preview',//edit： 默认展示编辑区域 ， preview： 默认展示预览区域 
+                editable: false,
+                toolbarsFlag: false,
+                scrollStyle: true
+            }
+            return data
+        }
+    },
 }
 </script>
 <style>

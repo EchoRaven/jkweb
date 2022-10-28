@@ -69,7 +69,7 @@ export default {
                 let params = new URLSearchParams();
                 params.append('email', this.email);
                 console.log(this.email)
-                this.axios.post("http://127.0.0.1:5000/user/mail", params).then((res) => {
+                this.$axios.post("http://127.0.0.1:5000/user/mail", params).then((res) => {
                     console.log(res.data)
                     console.log(typeof res.data)
                     if (res.data == 406) {
@@ -105,7 +105,7 @@ export default {
                 params.append('password', this.password);
                 params.append('email', this.email);
                 params.append('vcode', this.vcode);
-                this.axios.post("http://127.0.0.1:5000/user/register", params).then((res) => {
+                this.$axios.post("http://127.0.0.1:5000/user/register", params).then((res) => {
                     console.log(res.data)
                     console.log(typeof res.data)
                     if (res.data == 400) {
