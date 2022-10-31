@@ -139,22 +139,22 @@ export default {
                         n1++;
                     } else if (n2 <= 20) {
                         this.show_ball = true;
-                        reg_ball_1.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_1.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 40) {
-                        reg_ball_2.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_2.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 60) {
-                        reg_ball_3.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_3.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 80) {
-                        reg_ball_4.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_4.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 100) {
-                        reg_ball_5.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_5.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 120) {
-                        reg_ball_6.style.marginTop = 150 + 5 * n2 + 'px';
+                        reg_ball_6.style.marginTop = 50 + 5 * n2 + 'px';
                         n2++;
                     } else if (n3 <= 40) {
                         this.show_b = true;
@@ -243,6 +243,9 @@ export default {
 </script>
 
 <style>
+@import"register_style.css";
+
+/*引入css文件 */
 @keyframes flashing {
     0% {
         box-shadow: 0px 0px 0px cyan;
@@ -262,13 +265,16 @@ export default {
 }
 
 #reg_ball {
-    margin-top: 150px;
+    background: url(../../picture/earth.jpg) repeat-x 0 0;
+    /*引入地球图片作为背景*/
+    margin-top: 50px;
     height: 300px;
     width: 300px;
     margin-left: 550px;
     position: fixed;
     border-radius: 300px;
-    animation: flashing 2s infinite alternate;
+    animation: flashing 2s infinite alternate, loop 20s linear infinite;
+    /*地球自转动画*/
     color: rgb(73, 64, 64);
 }
 
@@ -276,12 +282,16 @@ export default {
     position: fixed;
 }
 
+/*字体修改 */
 .reg_title {
+    color: aliceblue;
     font-size: 60px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    animation: focus-in-contract-bck 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 #reg_ball_1 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -291,7 +301,7 @@ export default {
 }
 
 #reg_ball_2 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -301,7 +311,7 @@ export default {
 }
 
 #reg_ball_3 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -311,7 +321,7 @@ export default {
 }
 
 #reg_ball_4 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -321,7 +331,7 @@ export default {
 }
 
 #reg_ball_5 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -331,7 +341,7 @@ export default {
 }
 
 #reg_ball_6 {
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -341,7 +351,7 @@ export default {
 }
 
 #username {
-    margin-top: 155px;
+    margin-top: 55px;
     margin-left: 620px;
     position: fixed;
     border: none;
@@ -352,7 +362,7 @@ export default {
 }
 
 #password {
-    margin-top: 255px;
+    margin-top: 155px;
     margin-left: 620px;
     border: none;
     position: fixed;
@@ -370,7 +380,7 @@ export default {
 }
 
 .Tishi {
-    margin-top: 90px;
+    margin-top: 5px;
     margin-left: 560px;
     height: 30px;
     width: 800px;
@@ -408,7 +418,7 @@ body {
 }
 
 #newusername {
-    margin-top: 155px;
+    margin-top: 55px;
     margin-left: 620px;
     position: fixed;
     border: none;
@@ -419,7 +429,7 @@ body {
 }
 
 #newpassword {
-    margin-top: 255px;
+    margin-top: 155px;
     margin-left: 620px;
     border: none;
     position: fixed;
@@ -430,7 +440,7 @@ body {
 }
 
 #newemail {
-    margin-top: 355px;
+    margin-top: 255px;
     margin-left: 620px;
     border: none;
     position: fixed;
@@ -441,7 +451,7 @@ body {
 }
 
 #vcode {
-    margin-top: 555px;
+    margin-top: 455px;
     margin-left: 620px;
     border: none;
     position: fixed;

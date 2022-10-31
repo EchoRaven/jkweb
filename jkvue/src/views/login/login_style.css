@@ -1,0 +1,500 @@
+/*每个tags的颜色*/
+p {
+    color: antiquewhite;
+}
+
+/*各个轨道和星球，由近及远*/
+.orbit1 .planet1 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 10px;
+    width: 10px;
+    background-color: rgb(166, 138, 56);
+    border-radius: 50%;
+    position: absolute;
+    animation: move1 10s linear infinite;
+}
+
+.orbit1 {
+    z-index: 0;
+    left: 550px;
+    top: 240px;
+    height: 250px;
+    width: 250px;
+    background-color: transparent;
+    /*透明，显示背景*/
+    border-radius: 50%;
+    border-style: dashed;
+    /*轨道类型为虚线*/
+    border-color: aqua;
+    position: absolute;
+    border-width: 1px;
+    transform-style: preserve-3d;
+    transform: rotateZ(60deg) rotateY(70deg);
+}
+
+.orbit2 .planet2 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 22px;
+    width: 22px;
+    background-color: rgb(246, 97, 97);
+    border-radius: 50%;
+    position: absolute;
+    animation: move2 5s linear infinite;
+}
+
+.orbit2 {
+    z-index: 0;
+    left: 500px;
+    top: 178px;
+    height: 360px;
+    width: 360px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(30deg) rotateY(70deg);
+}
+
+.orbit3 .planet3 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 18px;
+    width: 18px;
+    background-color: rgb(115, 114, 174);
+    border-radius: 50%;
+    position: absolute;
+    animation: move3 10s linear infinite;
+}
+
+.orbit3 {
+    z-index: 0;
+    left: 450px;
+    top: 150px;
+    height: 420px;
+    width: 420px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(60deg) rotateY(70deg);
+}
+
+.orbit4 .planet4 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    width: 15px;
+    background-color: rgb(46, 42, 29);
+    border-radius: 50%;
+    position: absolute;
+    animation: move4 15s linear infinite;
+}
+
+.orbit4 {
+    z-index: 0;
+    left: 410px;
+    top: 120px;
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(60deg) rotateY(70deg);
+}
+
+.orbit5 .planet5 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(139, 212, 245, 0.949);
+    border-radius: 50%;
+    position: absolute;
+    animation: move5 20s linear infinite;
+}
+
+.orbit5 {
+    z-index: 0;
+    left: 380px;
+    top: 80px;
+    height: 600px;
+    width: 600px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(60deg) rotateY(70deg);
+}
+
+.orbit6 .planet6 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(140, 63, 117);
+    border-radius: 50%;
+    position: absolute;
+    animation: move6 25s linear infinite;
+}
+
+.orbit6 {
+    z-index: 0;
+    left: 310px;
+    top: -30px;
+    height: 800px;
+    width: 800px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(60deg) rotateY(70deg);
+}
+
+.orbit7 .planet7 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+    background-color: rgb(63, 140, 82);
+    border-radius: 50%;
+    position: absolute;
+    animation: move7 40s linear infinite;
+}
+
+.orbit7 {
+    z-index: 0;
+    left: 150px;
+    top: -100px;
+    height: 1000px;
+    width: 1000px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(80deg) rotateY(70deg);
+}
+
+.orbit7 .planet7 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+    background-color: rgb(63, 140, 82);
+    border-radius: 50%;
+    position: absolute;
+    animation: move7 40s linear infinite;
+}
+
+.orbit8 {
+    z-index: 0;
+    left: 10px;
+    top: -360px;
+    height: 1500px;
+    width: 1500px;
+    background-color: transparent;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: gray;
+    position: absolute;
+    border-width: 2px;
+    transform-style: preserve-3d;
+    transform: rotateZ(80deg) rotateY(70deg);
+}
+
+.orbit8 .planet8 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    width: 15px;
+    background-color: rgb(63, 66, 140);
+    border-radius: 50%;
+    position: absolute;
+    animation: move8 60s linear infinite;
+}
+
+/*各个星球移动的动画move1~move7*/
+
+@keyframes move1 {
+    from {
+        transform: rotateZ(0) translateX(125px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(125px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move2 {
+    from {
+        transform: rotateZ(0) translateX(180px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(180px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move3 {
+    from {
+        transform: rotateZ(0) translateX(210px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(210px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move4 {
+    from {
+        transform: rotateZ(0) translateX(240px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(240px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move5 {
+    from {
+        transform: rotateZ(0) translateX(300px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(300px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move6 {
+    from {
+        transform: rotateZ(0) translateX(400px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(400px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move7 {
+    from {
+        transform: rotateZ(0) translateX(500px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(500px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+@keyframes move8 {
+    from {
+        transform: rotateZ(0) translateX(750px) rotateZ(0) rotateY(-70deg);
+    }
+
+    to {
+        transform: rotateZ(360deg) translateX(750px) rotateZ(-360deg) rotateY(-70deg);
+    }
+}
+
+
+/*下面是JKWEB的右侧展示的css*/
+@keyframes J {
+    0% {
+        top: 0;
+        opicity: 0;
+    }
+
+    16% {
+        top: 20px;
+        opacity: 1;
+    }
+
+    80% {
+        top: 20px;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 0
+    }
+}
+
+@keyframes K {
+    0% {
+        opacity: 0;
+        top: 20px
+    }
+
+    16% {
+        opacity: 0;
+        top: 20px;
+    }
+
+    32% {
+        opacity: 1;
+        top: 120px
+    }
+
+    80% {
+        top: 120px;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 0
+    }
+}
+
+@keyframes W {
+    0% {
+        opacity: 0;
+        top: 120px
+    }
+
+    32% {
+        opacity: 0;
+        top: 120px
+    }
+
+    48% {
+        opacity: 1;
+        top: 220px
+    }
+
+    80% {
+        top: 220px;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 0
+    }
+}
+
+@keyframes E {
+    0% {
+        opacity: 0;
+        top: 220px
+    }
+
+    48% {
+        opacity: 0;
+        top: 220px
+    }
+
+    64% {
+        opacity: 1;
+        top: 320px
+    }
+
+    80% {
+        top: 320px;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 0
+    }
+}
+
+@keyframes B {
+    0% {
+        opacity: 0;
+        top: 320px
+    }
+
+    64% {
+        opacity: 0;
+        top: 320px
+    }
+
+    80% {
+        opacity: 1;
+        top: 420px
+    }
+
+    100% {
+        opacity: 0;
+        top: 0
+    }
+}
+
+@keyframes down {
+    16% {
+        transform: translate(0px, 100px);
+    }
+
+    32% {
+        transform: translate(0px, 200px);
+    }
+
+    48% {
+        transform: translate(0px, 300px);
+    }
+
+    64% {
+        transform: translate(0px, 400px);
+    }
+
+    80% {
+        transform: translate(0px, 500px);
+    }
+}
+
+/*小飞船的格式*/
+.image {
+    animation: down 6s infinite;
+    position: absolute;
+    right: 75px;
+    top: 0;
+}

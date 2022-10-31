@@ -1,0 +1,28 @@
+@keyframes loop {
+    0% {
+        background-position: 0 6px;
+    }
+
+    100% {
+        background-position: 500px 6px;
+    }
+
+    /*500*281*/
+}
+
+
+/*字体由远及近浮现的效果*/
+@keyframes focus-in-contract-bck {
+    0% {
+        letter-spacing: 1em;
+        transform: translateZ(300px);
+        filter: blur(12px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateZ(12px);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
