@@ -128,7 +128,7 @@ export default {
             }.bind(this), 1000)
         }, goto_write() {
             setTimeout(function () {
-                this.$router.push({ name: "user", params: { uid: this.uid } });
+                this.$router.push({ name: "write", params: { uid: this.uid } });
             }.bind(this), 1000)
         }
     }
@@ -137,8 +137,6 @@ export default {
 
 <style>
 .search_form {
-    margin-top: -100px;
-    position: fixed;
     height: 80px;
     width: 100%;
     background: url("../../picture/search_board.png") no-repeat;
@@ -240,15 +238,6 @@ export default {
     cursor: pointer;
 }
 
-#divline {
-    width: 400px;
-    color: #987cb9;
-    background-color: cadetblue;
-    height: 1px;
-    position: fixed;
-    margin-left: 15px;
-}
-
 #tag_list {
     margin-top: 90px;
     height: 200px;
@@ -260,64 +249,5 @@ export default {
     border: solid;
     border-color: burlywood;
     background: url(../../picture/button_board.png) no-repeat;
-}
-
-body {
-    background: url(../../picture/home_board.png) no-repeat;
-    background-size: cover;
-}
-
-.rec_button {
-    background: url(../../picture/arrow.png) no-repeat;
-    background-size: 230%;
-    background-position: -50px -50px;
-    height: 100px;
-    width: 200px;
-    font-size: 20px;
-    font-weight: bolder;
-    border-color: transparent;
-    text-shadow: 2px 2px 5px red;
-}
-
-.rec_button:hover {
-    height: 150px;
-    width: 300px;
-    font-size: 30px;
-    animation: arrow_c 5s infinite alternate;
-}
-
-@keyframes arrow_c {
-    0% {
-        background: url(../../picture/arrow.png) no-repeat;
-        background-size: 230%;
-        background-position: -75px -75px;
-        text-shadow: 2px 2px 5px red;
-    }
-
-    50% {
-        background: url(../../picture/arrow_change.png) no-repeat;
-        background-size: 100%;
-        background-position: -40px -30px;
-        text-shadow: -2px -2px 10px rgb(78, 219, 39);
-    }
-
-    100% {
-        background: url(../../picture/arrow.png) no-repeat;
-        background-size: 230%;
-        background-position: -75px -75px;
-        text-shadow: 2px 2px 5px red;
-    }
-}
-
-.recommand_li {
-    margin-top: 50px;
-    margin-left: 100px;
-    width: 900px;
-    background-color: white;
-}
-
-.recommand_board {
-    position: relative;
-    margin-top: 100px;
 }
 </style>

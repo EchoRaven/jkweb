@@ -32,7 +32,7 @@ export default new Router({
       component: register
     },
     {
-      path: '/write/:uid/:title',
+      path: '/write/:uid',
       name: 'write',
       component: write
     },
