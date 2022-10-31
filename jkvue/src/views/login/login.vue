@@ -20,6 +20,40 @@
             <input class="input" type="text" id="username" placeholder="username" v-model="username">
             <input class="input" type="password" id="password" placeholder="password" v-model="password">
         </form>
+        <!--模拟各星球(各星球为对应的tags)围绕login公转-->
+  			<div class='orbit1'>
+            <div class='planet1'><p style="transform:rotate(-60deg)">science</p></div></div>
+
+  			<div class='orbit2'>
+  			<div class='planet2'><p style="transform:rotate(-30deg)">study</p></div></div>
+
+  			<div class='orbit3'>
+  			<div class='planet3'><p style="transform:rotate(-60deg)">work</p></div> </div>
+
+  			<div class='orbit4'>
+  			<div class='planet4'><p style="transform:rotate(-60deg)">arts</p></div></div>
+
+
+  			<div class='orbit5'>
+            <div class='planet5'><p style="transform:rotate(-60deg)">news</p></div></div>
+
+  			<div class='orbit6'>
+  			<div class='planet6'><p style="transform:rotate(-60deg)">math</p></div></div>
+
+  			<div class='orbit7'>
+  			<div class='planet7'><p style="transform:rotate(-80deg)">phsics</p></div></div>
+
+             <div class='orbit8'>
+            <div class='planet8'><p style="transform:rotate(-80deg)">cpu</p></div></div>
+        <!--下面为页面右侧的站名展示-->
+       <div  style="animation:J 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">J</div>
+		<div  style="animation:K 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">K</div>
+        <div  style="animation:W 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">W</div>
+        <div  style="animation:E 6s infinite;  font: italic 2em Georgia, serif;color:aliceblue; font-size: 50px;position:absolute; right:100px;">E</div>
+        <div  style="animation:B 6s infinite; font: italic 2em Georgia, serif; color:aliceblue; font-size: 50px;position:absolute; right:100px;">B</div>
+        <div class="image">
+            <img src="../../picture/ufo.png"   alt="UFO" width="80" height="80">
+        </div>
     </div>
 </template>
 
@@ -98,6 +132,8 @@ export default {
                 var timer = setInterval(() => {
                     this.show_login = false;
                     if (n1 <= 25) {
+                        login_ball.style.marginTop=150+'px';//由于更改了login图标的大小和初始位置，在这里也要改
+                        login_ball.style.marginLeft=550+'px';
                         login_ball.style.height = (300 - n1 * 10) + 'px';
                         login_ball.style.width = (300 - n1 * 10) + 'px';
                         login_ball.style.radius = (300 - n1 * 10) + 'px';
@@ -170,6 +206,7 @@ export default {
 </script>
 
 <style>
+@import"login_style.css";      /*引入css文件 */
 @keyframes flashing {
     0% {
         box-shadow: 0px 0px 0px cyan;
@@ -189,10 +226,11 @@ export default {
 }
 
 #login_ball {
-    margin-top: 150px;
-    height: 300px;
-    width: 300px;
-    margin-left: 550px;
+    z-index: 1;
+    margin-top: 250px;
+    height: 150px;
+    width: 150px;
+    margin-left: 600px;
     position: fixed;
     border-radius: 300px;
     animation: flashing 2s infinite alternate;
@@ -200,15 +238,20 @@ export default {
 }
 
 .login_form {
+    z-index: 1;
     margin-top: 400px;
     position: fixed;
 }
 
 .login_title {
-    font-size: 60px;
+    z-index: 1;
+    color:aqua;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50px;
 }
 
 #ball_1 {
+    z-index: 1;
     margin-top: 270px;
     margin-left: 550px;
     height: 50px;
@@ -219,6 +262,7 @@ export default {
 }
 
 #ball_2 {
+    z-index: 1;
     margin-top: 270px;
     margin-left: 550px;
     height: 50px;
@@ -229,6 +273,7 @@ export default {
 }
 
 #ball_3 {
+    z-index: 1;
     margin-top: 270px;
     margin-left: 550px;
     height: 50px;
@@ -239,6 +284,7 @@ export default {
 }
 
 #username {
+    z-index: 1;
     margin-top: 155px;
     margin-left: 620px;
     position: fixed;
@@ -250,6 +296,7 @@ export default {
 }
 
 #password {
+    z-index: 1;
     margin-top: 275px;
     margin-left: 620px;
     border: none;
@@ -261,6 +308,7 @@ export default {
 }
 
 .login_form {
+    z-index: 1;
     margin-top: 0px;
     margin-left: 0px;
     height: 0;
@@ -268,6 +316,7 @@ export default {
 }
 
 .Tishi {
+    z-index: 1;
     margin-top: 90px;
     margin-left: 560px;
     height: 30px;
@@ -278,12 +327,14 @@ export default {
 }
 
 .ball_2_title {
+    z-index: 1;
     font-size: 25px;
     color: cornflowerblue;
     text-align: center;
 }
 
 .ball_3_title {
+    z-index: 1;
     font-size: 25px;
     color: cornflowerblue;
     text-align: center;

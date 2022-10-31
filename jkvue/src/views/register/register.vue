@@ -243,6 +243,7 @@ export default {
 </script>
 
 <style>
+@import"register_style.css";      /*引入css文件 */
 @keyframes flashing {
     0% {
         box-shadow: 0px 0px 0px cyan;
@@ -262,22 +263,26 @@ export default {
 }
 
 #reg_ball {
+    background: url(../../picture/earth.jpg) repeat-x 0 0;/*引入地球图片作为背景*/
     margin-top: 150px;
     height: 300px;
     width: 300px;
     margin-left: 550px;
     position: fixed;
     border-radius: 300px;
-    animation: flashing 2s infinite alternate;
+    animation: flashing 2s infinite alternate,loop 20s linear infinite;/*地球自转动画*/
     color: rgb(73, 64, 64);
 }
 
 .reg_form {
     position: fixed;
 }
-
+/*字体修改 */
 .reg_title {
-    font-size: 60px;
+            color:aliceblue;
+            font-size: 60px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	        animation: focus-in-contract-bck 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 #reg_ball_1 {
