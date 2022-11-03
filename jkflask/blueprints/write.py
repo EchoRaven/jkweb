@@ -34,10 +34,13 @@ def submit():
 def add_image():
     if request.method == 'OPTION':
         pass
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
     file = request.files.get('image')
     filename = str(request.form.get('uid')) + str(request.form.get('title')) + str(int(time.time()))
     savepath = basedir + filename
     file.save(savepath)
+    print('http://127.0.0.1:5000/write/static/'+filename)
     return 'http://127.0.0.1:5000/write/static/'+filename
 
 

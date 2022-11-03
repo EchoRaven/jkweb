@@ -16,7 +16,7 @@
             </div>
             <input type="text" class="input_search" v-model="search_content" />
             <span class="search_icon"></span>
-            <button id="user" v-on:click="goto_write">Us</button>
+            <button id="user" v-on:click="goto_user">Us</button>
         </form>
         <!--推荐页-->
         <div class="recommand_board">
@@ -126,9 +126,9 @@ export default {
             setTimeout(function () {
                 this.$router.push({ name: "webs", params: { id: index } });
             }.bind(this), 1000)
-        }, goto_write() {
+        }, goto_user() {
             setTimeout(function () {
-                this.$router.push({ name: "write", params: { uid: this.uid } });
+                this.$router.push({ name: "user", params: { uid: this.uid } });
             }.bind(this), 1000)
         }
     }

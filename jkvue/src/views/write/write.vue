@@ -2,13 +2,13 @@
     <div class="markdown">
         <div class="title_tags_submit">
             <input v-model="title" class="input_title" placeholder="请输入标题" />
-            <button class="tag_button" v-on:click="show_tag_list($event)">
+            <button class="wtag_button" v-on:click="show_tag_list($event)">
                 <!--标签筛选-->
                 Tags
             </button>
-            <div id="tag_list" v-show="show_tag">
+            <div id="wtag_list" v-show="show_tag">
                 <div v-for="(tg, index) in all_tags">
-                    <button v-bind:id="tagid(index)" class="ctag_button" v-on:click="chooseTag($event)">
+                    <button v-bind:id="tagid(index)" class="wctag_button" v-on:click="chooseTag($event)">
                         {{ tg }}
                     </button>
                 </div>
@@ -97,6 +97,10 @@ export default {
                     //接受返回值
                     if (res.data == 416) {
                         console.log("文章发布成功");
+                        alert('文章发布成功!');
+                        setTimeout(function () {
+                            this.$router.push({ name: "user", params: { uid: this.uid } });
+                        }.bind(this), 1000)
                     }
                     else {
                         console.log("文章发布失败");
@@ -207,7 +211,7 @@ export default {
     transition: all 2s;
 }
 
-.tag_button {
+.wtag_button {
     outline: none;
     height: 40px;
     width: 80px;
@@ -220,7 +224,7 @@ export default {
     color: rgb(154, 151, 151);
 }
 
-.ctag_button {
+.wctag_button {
     outline: none;
     height: 40px;
     width: 80px;
@@ -234,7 +238,7 @@ export default {
     color: rgb(154, 151, 151);
 }
 
-#tag_list {
+#wtag_list {
     margin-left: 355px;
     margin-top: 15px;
     z-index: 10000;

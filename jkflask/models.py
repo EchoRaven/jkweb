@@ -11,6 +11,9 @@ class UserInfo(db.Model):
     vcode = db.Column(db.String(10), nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     artical_num = db.Column(db.Integer, default=0)
+    headshot = db.Column(db.String(100), nullable=True, unique=False, default='http://127.0.0.1:5000/user/static/base')
+    tempshot = db.Column(db.String(100), nullable=True, unique=False, default='http://127.0.0.1:5000/user/static/base')
+    abstract = db.Column(db.Text(1024), nullable=False, unique=False, default='主人很懒，什么都没有写哦')
 
     def __init__(self, username, password, email, vcode):
         self.username = username
@@ -41,6 +44,8 @@ class ArticalInfo(db.Model):
     create_time = db.Column(db.DateTime, default=datetime.now)
     content = db.Column(db.Text(4294967295), nullable=False, unique=False, default="<!DOCTYPE html><title>hahaha</title><body><p>hahaha</p></body>")
     uid = db.Column(db.Integer, nullable=True, unique=False)
+    likes = db.Column(db.Integer, nullable=True, unique=False, default=0)
+    comments = db.Column(db.Integer, nullable=True, unique=False, default=0)
 
     def __init__(self, title, tags, content, uid):
         self.tags = tags

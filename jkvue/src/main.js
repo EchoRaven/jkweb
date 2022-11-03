@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import VueCropper from 'vue-cropper'
+Vue.use(VueCropper)
 
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false

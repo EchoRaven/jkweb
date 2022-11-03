@@ -45,6 +45,6 @@ export default new Router({
       path: '/user/:uid',
       name: 'user',
       component: user
-    }
+    },
   ]
 })

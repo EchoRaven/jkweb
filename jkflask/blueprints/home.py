@@ -34,7 +34,6 @@ def recommand():
         info['code'] = '411'
         info['arts'] = []
         info['title'] = []
-    print(info['arts'])
     return json.dumps(info, ensure_ascii=False)
 
 

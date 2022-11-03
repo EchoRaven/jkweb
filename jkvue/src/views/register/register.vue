@@ -350,28 +350,6 @@ export default {
     animation: flashing 2s infinite alternate;
 }
 
-#username {
-    margin-top: 55px;
-    margin-left: 620px;
-    position: fixed;
-    border: none;
-    border-bottom: 2px solid rgb(154, 151, 151);
-    font-size: 30px;
-    color: rgb(154, 151, 151);
-    background-color: black;
-}
-
-#password {
-    margin-top: 155px;
-    margin-left: 620px;
-    border: none;
-    position: fixed;
-    border-bottom: 2px solid rgb(154, 151, 151);
-    font-size: 30px;
-    color: rgb(154, 151, 151);
-    background-color: black;
-}
-
 .login_form {
     margin-top: 0px;
     margin-left: 0px;
