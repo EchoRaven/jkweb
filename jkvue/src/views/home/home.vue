@@ -292,23 +292,4 @@ export default {
     font-size: 15px;
     color: white;
 }
-
-.input_search:focus {
-    width: 500px;
-}
-
-.search_icon {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    margin-left: 628px;
-    margin-top: 23px;
-    background: url(../../picture/sbutton.png) no-repeat;
-    background-size: 70%;
-    background-position: 6px 7px;
-    cursor: pointer;
-}
-
-
 </style>

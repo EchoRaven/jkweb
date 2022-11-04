@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="701dd2f9-213d-4b19-bb79-5d77626a6ae1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jkflask.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jkflask.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jkvue/src/views/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../jkvue/src/views/home/home.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
