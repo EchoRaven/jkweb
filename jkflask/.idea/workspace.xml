@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="701dd2f9-213d-4b19-bb79-5d77626a6ae1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../jkvue/src/views/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../jkvue/src/views/home/home.vue" afterDir="false" />
-    </list>
+    <list default="true" id="701dd2f9-213d-4b19-bb79-5d77626a6ae1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

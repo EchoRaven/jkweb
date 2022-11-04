@@ -1,10 +1,4 @@
 # JKBlog
-
-## 总览视频
-<video id="video" controls="" preload="none" poster="zzc">
-<source id="mp4" src="./md-images/jkweb.mp4" type="video/mp4">
-</video>
-
 ## login界面
 ### 最初
 ![login](/md-images/login.png)
