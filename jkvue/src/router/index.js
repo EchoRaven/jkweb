@@ -7,6 +7,7 @@ import home from '@/views/home/home.vue'
 import write from '@/views/write/write.vue'
 import webs from '@/views/webs/webs.vue'
 import user from '@/views/user/user.vue'
+import search from '@/views/search/search.vue'
 
 Vue.use(Router)
 const VueRouterPush = Router.prototype.push
@@ -45,6 +46,11 @@ export default new Router({
       path: '/user/:uid',
       name: 'user',
       component: user
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search
     },
   ]
 })
