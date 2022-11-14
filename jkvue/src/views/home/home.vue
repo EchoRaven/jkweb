@@ -1,7 +1,10 @@
 <template>
+
     <div class="home_board">
+        <link rel="stylesheet" href="http://at.alicdn.com/t/font_1309180_m0vigzfu7y.css" />
         <form class="search_form">
-            <span id="logo">Logo</span>
+            <div class="back"></div>
+            <img id="logo" src="../../picture/mylogo.png" />
             <!--搜索区域可以大一点-->
             <button class="tag_button" v-on:click="show_tag_list">
                 <!--标签筛选-->
@@ -14,20 +17,25 @@
                     </button>
                 </div>
             </div>
-            <input type="text" class="input_search" v-model="search_content" />
-            <span class="search_icon"></span>
-            <button id="user" v-on:click="goto_user">Us</button>
-        </form>
-        <!--推荐页-->
-        <div class="recommand_board">
-            <div class="recommand_li" v-for="(id, index) in recommand_list">
-                <!--cover之后应有闪烁与方法效果-->
-                <button v-bind:id="recommandid(index)" v-on:click="goto_page(id)" class="rec_button">
-                    <!--这里应当放置的是标题与text内容-->
-                    {{ form_title(title_list[index]) }}
-                </button>
+            <div id="raccoon" v-on:click="show_sbox"></div>
+            <div id="boomcloud"></div>
+            <div id="searchResult">
+                <div v-for="(res, index) in searchResult" class="searchResult">
+                    <hr v-if="index > 0" />
+                    <div class="searchResultSingleBox" v-on:click="goto_page(searchResult[index])">
+                        <div class="searchResultTitle">{{ searchTitle[index] }}</div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="search-box">
+                <input type="text" class="search-text" v-model="search_content" />
+                <a class="search-btn" v-on:click="search">
+                    <!--这个#号要改成正确的URL，到时候有文章了可以改的-->
+                    <i class="iconfont iconchazhao"></i>
+                </a>
+            </div>
+            <img :src="headshot" id="user" v-on:click="goto_user" />
+        </form>
     </div>
 </template>
 
@@ -44,7 +52,11 @@ export default {
             all_tags: ["science", "study", "work", "food", "arts", "news", "cpu", "physics", "music", "math", "foreign", "daily", "school", "base"],
             //推荐列表
             recommand_list: [],
-            title_list: []
+            title_list: [],
+            headshot: "",
+            searchResult: [],//这里直接储存文章序号
+            searchTitle: [],//这里储存文章标题
+            search_show: false,
         }
     },
     mounted() {
@@ -64,6 +76,11 @@ export default {
                 }
             }
         }, 10);
+        let params2 = new URLSearchParams();
+        params2.append('uid', this.uid);
+        this.$axios.post('http://127.0.0.1:5000/user/get_userinfo', params2).then(res => {
+            this.headshot = res.data['headshot'];
+        });
     },
     methods: {
         show_tag_list() {
@@ -104,7 +121,7 @@ export default {
                     return item != index;
                 })
                 var com = document.getElementById(el);
-                com.style.backgroundColor = "rgb(7, 197, 7)";
+                com.style.backgroundColor = "#18c870";
             }
             console.log(this.c_tags);
         }, recommandid(index) {
@@ -126,10 +143,83 @@ export default {
             setTimeout(function () {
                 this.$router.push({ name: "webs", params: { id: index } });
             }.bind(this), 1000)
+        }, goto_write() {
+            setTimeout(function () {
+                this.$router.push({ name: "write", params: { uid: this.uid } });
+            }.bind(this), 1000)
         }, goto_user() {
             setTimeout(function () {
                 this.$router.push({ name: "user", params: { uid: this.uid } });
             }.bind(this), 1000)
+        }, search() {
+            var tags = [];
+            for (var i = 0; i < this.c_tags.length; ++i) {
+                tags.push(this.all_tags[this.c_tags[i]]);
+            }
+            let params = new URLSearchParams();
+            params.append('tags', tags);
+            params.append('words', this.search_content);
+            this.$axios.post("http://127.0.0.1:5000/search/get_search", params).then((res) => {
+                this.searchResult = res.data['search_id'];
+                this.searchTitle = res.data['search_title'];
+                console.log(this.searchResult);
+                console.log(this.searchTitle);
+            })
+            var n = 0;
+            var timer = setInterval(() => {
+                if (n == 0) {
+                    document.getElementsByClassName('search-box')[0].style.visibility = 'hidden';
+                    document.getElementById('searchResult').style.opacity = '100';
+                    document.getElementById('searchResult').style.zIndex = '10';
+                    n++;
+                }
+                else if (n <= 10) {
+                    document.getElementsByClassName('search-box')[0].style.marginTop = (380 - 12 * n) + 'px';
+                    n++;
+                } else if (n == 11) {
+                    document.getElementById('boomcloud').style.opacity = '100';
+                    document.getElementById('boomcloud').style.zIndex = '100';
+                    n++;
+                } else if (n <= 79) {
+                    n++;
+                } else if (n == 80) {
+                    document.getElementById('boomcloud').style.opacity = '0';
+                    document.getElementById('boomcloud').style.zIndex = '-100';
+                    n++;
+                } else if (n <= 85) {
+                    n++;
+                } else if (n == 86) {
+                    document.getElementById('raccoon').style.opacity = '100';
+                    document.getElementById('raccoon').style.zIndex = '100';
+                    n++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 10);
+        },
+        show_sbox() {
+            console.log("return");
+            var n = 0;
+            var timer = setInterval(() => {
+                if (n == 0) {
+                    document.getElementsByClassName('search-box')[0].style.visibility = 'visible';
+                    document.getElementById('raccoon').style.opacity = '0';
+                    document.getElementById('raccoon').style.zIndex = '100';
+                    n++;
+                }
+                else if (n <= 10) {
+                    document.getElementsByClassName('search-box')[0].style.marginTop = (260 + 12 * n) + 'px';
+                    n++;
+                } else if (n <= 45) {
+                    n++;
+                } else if (n == 46) {
+                    document.getElementById('searchResult').style.opacity = '0';
+                    document.getElementById('searchResult').style.zIndex = '-10';
+                    n++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 10);
         }
     }
 }
@@ -144,59 +234,156 @@ export default {
     z-index: 1000000;
 }
 
+.back {
+    /* height: 100%; */
+    /* width: 100%; */
+    background: url("../../picture/background.jpg") no-repeat;
+    /* background-size: cover; */
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    position: fixed;
+}
+
 * {
     margin: 0;
     padding: 0
 }
 
 #logo {
-    margin-top: 15px;
-    height: 50px;
-    width: 100px;
-    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 60px;
+    width: 80px;
+    border-radius: 10px;
     position: fixed;
-    background-color: white;
-    text-align: center;
-    font-size: 35px;
+
 }
 
+/*右上角小人图标(117, 230, 216*/
 #user {
+    background-size: contain;
     margin-top: 15px;
-    margin-left: 1400px;
+    margin-left: 1440px;
     height: 50px;
     width: 50px;
     border-radius: 50px;
     position: fixed;
-    background-color: white;
+    background-color: rgb(153, 227, 219);
     text-align: center;
-    font-size: 35px;
+    border: solid rgb(81, 255, 0) 3px;
 }
 
-.input_search {
-    border-color: white;
-    margin-top: 15px;
-    margin-left: 620px;
+.search-box {
+    position: absolute;
+    margin-top: 380px;
+    margin-left: 765px;
+    transform: translate(-50%, -50%);
+    background: #eff1eb;
+    height: 40px;
+    border-radius: 30px;
+    /*圆角边框*/
+    padding: 10px;
+}
+
+.search-box:hover>.search-text {
+    width: 400px;
+}
+
+.search-box:hover>.search-btn {
+    background: rgb(3, 6, 0);
+    color: #f0f1f3;
+}
+
+.search-btn {
+
+    color: rgb(255, 255, 255);
+    /* float: right; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #18c870;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.search-text {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: rgb(0, 1, 9);
+    font-size: 20px;
+    font-family: "Microsoft YaHei UI Light";
+    transition: 0.5s;
+    line-height: 40px;
+    width: 0px;
+
+}
+
+/* Tags*/
+.tag_button {
+
+    border: none;
+    margin-top: 430px;
+    margin-left: 725px;
     height: 50px;
     width: 80px;
+    font-size: 40px;
     border-radius: 50px;
     position: fixed;
-    background-color: white;
+    background-color: #2fa415;
     text-align: center;
-    font-size: 25px;
-    transition: width .5s;
-    transition-delay: .1s;
 }
 
-.tag_button {
-    border-color: white;
-    margin-top: 15px;
-    margin-left: 500px;
-    height: 50px;
-    width: 100px;
-    border-radius: 50px;
+#tag_list {
+    height: 180px;
+    width: 430px;
+    margin-top: 500px;
+    margin-left: 550px;
+    background-color: rgb(255, 255, 255);
     position: fixed;
-    background-color: rgb(7, 197, 7);
-    text-align: center;
+    border-radius: 20px;
+    border: solid;
+    border-color: burlywood;
+    background: url(../../picture/button_board.png) no-repeat;
+}
+
+#searchResult {
+    padding: 30px;
+    height: 400px;
+    width: 600px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 2px 2px 10px black;
+    transition-duration: 1s;
+    position: fixed;
+    margin-left: 445px;
+    margin-top: 200px;
+    z-index: -10;
+    opacity: 0;
+}
+
+.searchResultSingleBox:hover {
+    background: rgb(194, 194, 194);
+    transition-duration: 0.4s;
+}
+
+.searchResultSingleBox {
+    border-radius: 8px;
+    padding: 5px;
+    transition-duration: 0.4s;
+}
+
+.searchResultTitle {
+    margin: 5px 0 5px;
+    font-size: large;
+    font-weight: bold;
+    max-lines: 1;
 }
 
 .ctag_button {
@@ -207,7 +394,7 @@ export default {
     width: 80px;
     border-radius: 30px;
     position: fixed;
-    background-color: rgb(7, 197, 7);
+    background-color: #18c870;
     text-align: center;
 }
 
@@ -217,37 +404,34 @@ export default {
 }
 
 .button_name {
-    font-size: 25px;
+    font-size: 23px;
     color: white;
 }
 
-.input_search:focus {
-    width: 500px;
-}
-
-.search_icon {
+#raccoon {
     position: fixed;
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    margin-left: 628px;
-    margin-top: 23px;
-    background: url(../../picture/sbutton.png) no-repeat;
-    background-size: 70%;
-    background-position: 6px 7px;
-    cursor: pointer;
-}
-
-#tag_list {
-    margin-top: 90px;
+    z-index: 100;
     height: 200px;
-    width: 430px;
-    margin-left: 500px;
-    background-color: rgb(255, 255, 255);
+    width: 200px;
+    background: url(../../picture/raccoon.png) no-repeat;
+    background-size: 80%;
+    transform: rotate(-8deg);
+    margin-left: 700px;
+    margin-top: 60px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+#boomcloud {
     position: fixed;
-    border-radius: 20px;
-    border: solid;
-    border-color: burlywood;
-    background: url(../../picture/button_board.png) no-repeat;
+    z-index: 100;
+    height: 200px;
+    width: 200px;
+    background: url(../../picture/boomcloud.png) no-repeat;
+    background-size: 80%;
+    opacity: 0;
+    margin-left: 683px;
+    margin-top: 69px;
+    transition: 1.2s;
 }
 </style>

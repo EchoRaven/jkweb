@@ -211,8 +211,8 @@ def get_all_artical():
     info['likes'] = []
     info['comments'] = []
     info['tags'] = []
+    info['ids'] = []
     for art in articals:
-        print(art)
         info['title'].append(art.title)
         info['content'].append(art.content)
         info['clicks'].append(art.clicks)
@@ -220,4 +220,5 @@ def get_all_artical():
         info['likes'].append(art.likes)
         info['comments'].append(art.comments)
         info['create_time'].append(str(art.create_time))
+        info['ids'].append(art.id)
     return json.dumps(info, ensure_ascii=False)

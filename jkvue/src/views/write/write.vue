@@ -166,8 +166,6 @@ export default {
     mounted() {
         this.title = this.$route.params.title;
         this.uid = this.$route.params.uid;
-        console.log('标题' + this.title);
-        console.log('用户' + this.uid);
     },
 }
 </script>

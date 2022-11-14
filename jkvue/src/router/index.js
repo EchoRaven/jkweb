@@ -37,7 +37,7 @@ export default new Router({
       component: write
     },
     {
-      path: '/webs/:id',
+      path: '/webs/:id/:uid',
       name: 'webs',
       component: webs
     },

@@ -1,34 +1,36 @@
 <template>
     <div>
-        <mavon-editor class="md" :value="content" :subfield="prop.subfield" :defaultOpen="prop.defaultOpen"
-            :toolbarsFlag="prop.toolbarsFlag" :editable="prop.editable" :scrollStyle="prop.scrollStyle" />
+        <div class="artical_box">
+            <mavon-editor class="md" :value="content" :subfield="prop.subfield" :defaultOpen="prop.defaultOpen"
+                :toolbarsFlag="prop.toolbarsFlag" :editable="prop.editable" :scrollStyle="prop.scrollStyle" />
+            <comment :artid="id" :uid="uid" class="co_box"></comment>
+        </div>
     </div>
 </template>
 
 <script>
 import { mavonEditor } from 'mavon-editor'
+import comment from '../comment/comment.vue'
 import 'mavon-editor/dist/css/index.css'
 export default {
     components: {
         mavonEditor,
+        comment,
     },
     data() {
         return {
             content: '<!DOCTYPE html><title>hahaha</title><body><p>hahaha</p></body>',
-            id: 0,
+            id: Number(this.$route.params.id),
+            uid: Number(this.$route.params.uid),
         }
     }, mounted() {
-        this.id = this.$route.params.id;
-        console.log(this.id);
         //获取网页信息
         //content通过数据库获取
         let params = new URLSearchParams();
         params.append('id', this.id);
         this.$axios.post("http://127.0.0.1:5000/content", params).then((res) => {
-            console.log(res.data['code']);
             if (res.data['code'] == 414) {
                 this.content = res.data['content'];
-                console.log(this.content);
             }
         })
     }, computed: {
@@ -46,8 +48,16 @@ export default {
 }
 </script>
 <style>
-* {
-    margin: 0;
-    padding: 0;
+.co_box {
+    padding: 10px;
+    margin-left: -10%;
+}
+
+.artical_box {
+    margin-top: 30px;
+    padding: 10px;
+    width: 70%;
+    border: gray solid;
+    margin-left: 15%;
 }
 </style>

@@ -94,8 +94,8 @@
                             </div>
                         </div>
 
-                        <div class="article_like_box">
-                            <a href="#">喜欢的话点个赞吧！</a>
+                        <div class="article_like_box" @click="artical_detail">
+                            <a herf="#">点击查看文章详情</a>
                         </div>
 
 
@@ -224,6 +224,7 @@ export default {
             comments: [],//这里存放评价数量
             likes: [],//这里储存点赞数量
             tags: [],//这里储存标签
+            ids: [],//这里储存文章编号
             page: 0,//这里是页数
             now_content: "作者没有写过任何文章哦",//这里存放当前页面的信息
             total_page: 0,//这里存放总页数
@@ -231,7 +232,6 @@ export default {
     },
     mounted() {
         this.uid = this.$route.params.uid;
-        console.log(this.uid);
         let params = new URLSearchParams();
         params.append('uid', this.uid);
         this.$axios.post('http://127.0.0.1:5000/user/get_userinfo', params).then(res => {
@@ -252,6 +252,7 @@ export default {
             this.tags = res.data['tags'];
             this.title = res.data['title'];
             this.content = res.data['content'];
+            this.ids = res.data['ids'];
             this.now_content = this.content[this.page];
             this.total_page = this.comments.length;
         });
@@ -393,6 +394,10 @@ export default {
             if (this.page == this.total_page - 1) return;
             this.page++;
             this.now_content = this.content[this.page];
+        }, artical_detail() {
+            setTimeout(function () {
+                this.$router.push({ name: "webs", params: { id: this.ids[this.page], uid: this.uid } });
+            }.bind(this), 1000)
         }
     }
 }
@@ -945,15 +950,6 @@ footer,
     position: absolute;
     width: 100%;
     height: 100%;
-}
-
-.header_search_btn i {
-    width: 30px;
-    height: 30px;
-    display: block;
-    margin: 25px 0 0 10px;
-    background: url("./img/search.png");
-    background-size: 100% 100%;
 }
 
 .header_nav_small_btn {
@@ -2281,15 +2277,6 @@ footer,
         height: 100%;
     }
 
-    .header_search i {
-        width: 34px;
-        height: 35px;
-        display: block;
-        margin: 12px 0 0 8px;
-        background: url("./img/search_small.png");
-        background-size: 100% 100%;
-    }
-
     /*鎵嬫満椤甸潰鐨勫鑸寜閽� 涓夋í鍙樹竴脳*/
     .header_nav_small_btn {
         display: block;
@@ -2511,15 +2498,6 @@ footer,
         position: absolute;
         width: 100%;
         height: 100%;
-    }
-
-    .header_search_btn i {
-        width: 30px;
-        height: 30px;
-        display: block;
-        margin: 13px 0 0 5px;
-        background: url("./img/search_small.png");
-        background-size: 100% 100%;
     }
 
     .header_nav_small_btn {
