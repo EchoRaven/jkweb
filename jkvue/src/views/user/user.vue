@@ -24,32 +24,6 @@
                             <h4>同舟共济</h4>
                         </div>
                     </div>
-                    <div class="header_nav">
-                        <ul class="clearfix">
-                            <li class="have_second"><a>study</a>
-                                <ul class="nav_second">
-                                    <i></i>
-                                    <li><a>science</a></li>
-                                    <li><a>work</a></li>
-                                    <li><a>arts</a></li>
-                                    <li><a>news</a></li>
-                                    <li><a>physics</a></li>
-                                    <li><a>math</a></li>
-                                    <li><a>music</a></li>
-                                </ul>
-                            </li>
-                            <li class="have_second">
-                                <a>daily life</a>
-                                <ul class="nav_second">
-                                    <i></i>
-                                    <li><a>food</a></li>
-                                    <li><a>school</a></li>
-                                    <li><a>moive review</a></li>
-                                    <li><a>travel</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="header_nav_small_btn">
                         <span class="small_btn"></span>
                     </div>
@@ -74,7 +48,7 @@
                         <div class="article_article_title">
                             <h3>我的文章</h3>
                         </div>
-                        <h3 class="article_content_title">这里是文章的标题</h3>
+                        <h3 class="article_content_title">{{ title[page] }}</h3>
                         <div class="article_author_count_box clearfix">
                             <i class="article_author_img" title="计科人">
                                 <img :src="headshot" />
@@ -93,34 +67,12 @@
                                     :editable="prop.editable" :scrollStyle="prop.scrollStyle" />
                             </div>
                         </div>
-
                         <div class="article_like_box" @click="artical_detail">
                             <a herf="#">点击查看文章详情</a>
                         </div>
-
-
                         <div class="article_prev_next_box">
                             <a v-on:click="turn_to_pre">上一章：{{ pre_page() }}</a>
                             <a v-on:click="turn_to_nxt">下一章：{{ nxt_page() }}</a>
-                        </div>
-                    </div>
-
-                    <div class="article_like_article">
-                        <div class="article_article_title">
-                            <h3>相关文章</h3>
-                        </div>
-                        <div class="article_like_list">
-                            <a href="#">相似文章1</a>
-                            <a href="#">相似文章2</a>
-                            <a href="#">相似文章3</a>
-                            <a href="#">相似文章4</a>
-                            <a href="#">相似文章5</a>
-                            <a href="#">相似文章6</a>
-                        </div>
-                    </div>
-                    <div class="pinglun_box">
-                        <div class="article_article_title">
-                            <h3>文章评论</h3>
                         </div>
                     </div>
                 </div>
@@ -147,50 +99,24 @@
                                     <!--将作者id，标题等信息传递到下一个页-->
                                     <button v-on:click="submit" class="create_button">开始创作</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                     <!--本栏推荐-->
                     <div class="right_box tuijian_moban">
-                        <h3>本栏推荐</h3>
+                        <h3>网站推荐</h3>
                         <div>
                             <ul>
-                                <li><a href="#">科学</a></li>
-                                <li><a href="#">计算机</a></li>
-                                <li><a href="#">文学</a></li>
-                                <li><a href="#">家庭</a></li>
-                                <li><a href="#">食物</a></li>
-                                <li><a href="#">旅行</a></li>
-
+                                <li v-for="(i, index) in recommand" @click="goto_reco(index)">{{ recommand[index] }}
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <!--点击排行-->
-                    <div class="right_box tuijian_moban">
-                        <h3>排行榜</h3>
-                        <div>
-                            <ul>
-                                <li><a href="#">top1</a></li>
-                                <li><a href="#">top2</a></li>
-                                <li><a href="#">top3</a></li>
-                                <li><a href="#">top4</a></li>
-                                <li><a href="#">top5</a></li>
-                                <li><a href="#">top6</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--友情链接-->
                     <div class="right_box youlian_list">
                         <h3>我的收藏</h3>
                         <div>
-                            <ul>
-                                <li><a href="#">收藏文章1</a></li>
-                                <li><a href="#">收藏文章2</a></li>
-                                <li><a href="#">收藏文章3</a></li>
-                                <li><a href="#">收藏文章4</a></li>
-                                <li><a href="#">收藏文章5</a></li>
-                                <li><a href="#">收藏文章6</a></li>
+                            <ul v-for="(art, index) in collection">
+                                <li id="c_artid(index)" @click="ctoweb(index)">{{ c_art[index] }}</li>
                             </ul>
                         </div>
                     </div>
@@ -228,17 +154,29 @@ export default {
             page: 0,//这里是页数
             now_content: "作者没有写过任何文章哦",//这里存放当前页面的信息
             total_page: 0,//这里存放总页数
+            collection: [],//这里储存收藏的文章
+            c_art: [],//这里储存收藏的文章的名字
+            collect_num: 0,//这里储存收藏文章的篇数
+            recoid: [],//这里储存推荐id
+            recommand: [],//这里储存推荐列表
         }
     },
     mounted() {
         this.uid = this.$route.params.uid;
         let params = new URLSearchParams();
         params.append('uid', this.uid);
+        this.$axios.post('http://127.0.0.1:5000/recommand', params).then(res => {
+            this.recommand = res.data['title'];
+            this.recoid = res.data['arts'];
+        })
         this.$axios.post('http://127.0.0.1:5000/user/get_userinfo', params).then(res => {
             this.headshot = res.data['headshot'];
             this.tempshot = res.data['tempshot'];
             this.username = res.data['username'];
             this.abstract = res.data['abstract'];
+            this.collection = res.data['collection'];
+            this.c_art = res.data['c_art'];
+            this.collect_num = res.data['collect_num'];
             //这里做一个文本转化
             var ele = document.getElementById('abstract');
             ele.innerText = res.data['abstract'];
@@ -398,12 +336,22 @@ export default {
             setTimeout(function () {
                 this.$router.push({ name: "webs", params: { id: this.ids[this.page], uid: this.uid } });
             }.bind(this), 1000)
+        }, c_artid(index) {
+            return 'li' + index;
+        }, ctoweb(index) {
+            setTimeout(function () {
+                this.$router.push({ name: "webs", params: { id: this.collection[index], uid: this.uid } });
+            }.bind(this), 1000)
+        }, goto_reco(index) {
+            setTimeout(function () {
+                this.$router.push({ name: "webs", params: { id: this.recoid[index], uid: this.uid } });
+            }.bind(this), 1000)
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 #change_abstract_input {
     outline: none;
     border: none;
@@ -1840,9 +1788,6 @@ footer,
     opacity: 0;
 }
 
-
-/*鍙充晶浜岀淮鐮侀儴鍒�*/
-.self_erweima h3,
 .tuijian_moban h3,
 .youlian_list h3 {
     padding: 15px 20px;

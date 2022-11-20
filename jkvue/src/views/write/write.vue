@@ -170,7 +170,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .title_tags_submit {
     margin: 15px;
 }

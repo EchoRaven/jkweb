@@ -10,11 +10,12 @@
             </div>
             <div id="comment_box" v-for="(index) in root">
                 <cline :uid="uid" :id="id[index]" :cid="cid[index]" :fa="fa[index]" :content="content[index]"
-                    :likes="likes[index]" :create_time="create_time[index]" :artid="artid" :toid="toid[index]" />
-                <div v-for=" (idx) in c_tree[id[index]]">
+                    :likes_num="likes[index]" :create_time="create_time[index]" :artid="artid" :toid="toid[index]"
+                    :likes_list="likes_uid[index]" />
+                <div v-for=" (idx) in c_tree[index]">
                     <cline class="second_comment" :uid="uid" :id="id[idx]" :cid="cid[idx]" :fa="fa[idx]"
-                        :content="content[idx]" :likes="likes[idx]" :create_time="create_time[idx]" :artid="artid"
-                        :toid="toid[idx]" />
+                        :content="content[idx]" :likes_num="likes[idx]" :create_time="create_time[idx]" :artid="artid"
+                        :toid="toid[idx]" :likes_list="likes_uid[idx]" />
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@ export default {
     },
     data() {
         return {
-            c_tree: [[]],//这是一个二维数组
+            c_tree: [],//这是一个二维数组
             fa: [],
             id: [],
             likes: [],
@@ -48,6 +49,7 @@ export default {
             root: [],//根
             create_time: [],
             toid: [],
+            likes_uid: [],
         }
     },
     mounted() {
@@ -66,6 +68,7 @@ export default {
             this.content = res.data['content'];
             this.create_time = res.data['create_time'];
             this.toid = res.data['toid'];
+            this.likes_uid = res.data['likes_uid'];
             for (var i = 0; i < this.fa.length; ++i) {
                 if (this.fa[i] == 0) this.root.push(i);//存入根
                 var temp = [];
@@ -108,7 +111,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .send_root {
     width: 700px;
     border: transparent;
@@ -148,7 +151,7 @@ export default {
 }
 
 .comment_area {
-    border: rgb(169, 168, 168) solid;
+    border: rgb(227, 227, 227) solid 1.3px;
     padding-top: 20px;
     padding-bottom: 20px;
     width: 580px;

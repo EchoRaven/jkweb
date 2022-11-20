@@ -14,6 +14,11 @@
                 <div class="comment_btn">
                     <button @click="send_comment">回复消息</button>
                 </div>
+                <div class="like_btn" @click="point_likes">
+                    <img v-if="be_like" src="./like_yes.png">
+                    <img v-else src="./like_no.png">
+                </div>
+                <p>{{ this.likes }}</p>
             </div>
             <div class="input_comment" v-show="show_input">
                 <textarea placeholder="输入评论" :id="id"></textarea>
@@ -33,6 +38,9 @@ export default {
             username: "",
             show_input: false,
             to_name: "",
+            be_like: false,
+            likes: 0,
+            likes_uid: [],
         }
     },
     props: {
@@ -48,7 +56,7 @@ export default {
             type: Number,
             default: 0
         },
-        likes: {
+        likes_num: {
             type: Number,
             default: 0
         },
@@ -67,6 +75,9 @@ export default {
         }, toid: {
             type: Number,
             default: 0,
+        }, likes_list: {
+            type: Array,
+            default: [],
         }
     },
     mounted() {
@@ -93,9 +104,19 @@ export default {
             if (textarea.value != "") button.style.backgroundColor = 'rgb(18,18,242)';
             else button.style.backgroundColor = 'rgb(168, 168, 253)';
         });
+        this.likes = this.likes_num;
+        this.likes_uid = this.likes_list;
+        for (var i = 0; i < this.likes; ++i) {
+            if (this.likes_uid[i] == this.uid) {
+                this.be_like = true;
+                break;
+            }
+        }
     },
     methods: {
-        comment_this() {
+        like_id() {
+            return 'like' + this.id;
+        }, comment_this() {
             var ele = document.getElementById(this.id);
             var itext = ele.value;
             if (itext == '') return;
@@ -105,7 +126,6 @@ export default {
             params.append('fa', this.fa);//传递这个的爸爸
             params.append('cid', this.cid);//传递这个的cid
             params.append('id', this.id);//传递这个的id
-            console.log(this.cid);
             params.append('content', itext);//传递这个的内容
             this.$axios.post("http://127.0.0.1:5000/comment/sent_comment", params).then((res) => {
                 this.reload();
@@ -118,12 +138,36 @@ export default {
             else return this.username + " 回复 " + this.to_name;
         }, button_id() {
             return this.id + 'button';
+        }, point_likes() {
+            //本地修改是否点赞的同时向服务器传递信息
+            let params = new URLSearchParams();
+            params.append('uid', this.uid);
+            params.append('id', this.id);
+            if (this.be_like == false) {
+                this.likes_uid.push(this.uid);
+                this.likes++;
+                params.append('choose', true);
+            } else {
+                var newli = [];
+                for (var i = 0; i < this.likes; ++i) {
+                    if (this.likes_uid[i] != this.uid) {
+                        newli.push(this.likes_uid[i]);
+                    }
+                }
+                this.likes--;
+                this.likes_uid = newli;
+                params.append('choose', false);
+            }
+            this.$axios.post("http://127.0.0.1:5000/comment/point_likes", params).then((res) => {
+                console.log(res.data);
+            });
+            this.be_like = !this.be_like;
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .sender img {
     display: block;
     width: 25px;
@@ -174,13 +218,26 @@ export default {
 
 .base_line .comment_btn button {
     margin-top: -2%;
-    margin-right: 200px;
+    margin-right: 10px;
     background-color: transparent;
     border: 0px;
     background: url(../../picture/comment.png) no-repeat;
     background-size: 80%;
     background-position: 0px -6px;
     color: transparent
+}
+
+.like_btn img {
+    margin-top: -30%;
+    background-size: 100%;
+    height: 30px;
+    width: 30px;
+    margin-right: 0px;
+}
+
+.base_line p {
+    margin-right: 190px;
+    margin-top: -0.7%;
 }
 
 .input_comment textarea {

@@ -239,7 +239,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import"login_style.css";
 
 /*引入css文件 */

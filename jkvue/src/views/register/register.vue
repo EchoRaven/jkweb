@@ -30,7 +30,7 @@
         <form class="reg_form" v-show="show_b">
             <p class="Tishi" v-show="showregTishi">{{ regtishi }}</p>
             <input class="input" type="text" id="newusername" placeholder="username" v-model="username">
-            <input class="input" type="text" id="newpassword" placeholder="password" v-model="password">
+            <input class="input" type="password" id="newpassword" placeholder="password" v-model="password">
             <input class="input" type="text" id="newemail" placeholder="email" v-model="email">
             <input class="input" type="text" id="vcode" placeholder="vcode" v-model="vcode">
         </form>
@@ -242,7 +242,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import"register_style.css";
 
 /*引入css文件 */

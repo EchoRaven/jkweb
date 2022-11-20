@@ -7,11 +7,24 @@ from models import UserInfo, EmailInfo, ArticalInfo
 import json
 import os
 import time
-from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 mdict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 basedir = os.path.abspath(os.path.dirname(__file__)) + '\\headshot\\'
+
+
+def split_arr(arr: str):
+    return arr.split(',')
+
+
+def combine_arr(arr):
+    res = ""
+    print(arr)
+    for i in range(len(arr)):
+        if i != 0:
+            res += ','
+        res += arr[i]
+    return res
 
 
 # 402是用户名或密码输入格式错误
@@ -134,17 +147,29 @@ def get_headshot():
     if request.method == 'OPTION':
         pass
     uid = request.form.get('uid')
+    info['c_art'] = []
     try:
         user = UserInfo.query.filter_by(id=uid).first()
         info['headshot'] = user.headshot
         info['tempshot'] = user.tempshot
         info['username'] = user.username
         info['abstract'] = user.abstract
+        info['collect_num'] = user.collect_num
+        if info['collect_num'] == 0:
+            info['collection'] = []
+            info['c_art'] = []
+        else:
+            info['collection'] = split_arr(user.collection)
+            for c in info['collection']:
+                info['c_art'].append(ArticalInfo.query.filter_by(id=c).first().title)
     except:
         info['headshot'] = 'http://127.0.0.1:5000/user/static/base'
         info['tempshot'] = 'http://127.0.0.1:5000/user/static/base'
         info['username'] = '未登录'
         info['abstract'] = '主人很懒，什么都没有写哦'
+        info['collection'] = []
+        info['collect_num'] = 0
+        info['c_art'] = []
     return json.dumps(info, ensure_ascii=False)
 
 
@@ -222,3 +247,43 @@ def get_all_artical():
         info['create_time'].append(str(art.create_time))
         info['ids'].append(art.id)
     return json.dumps(info, ensure_ascii=False)
+
+
+@bp.route('/point_collect', methods=['GET', 'POST'])
+def point_collect():
+    if request.method == 'OPTION':
+        pass
+    choose = request.form.get('choose')
+    uid = request.form.get('uid')
+    id = request.form.get('id')
+    amodel = ArticalInfo.query.filter_by(id=id).first()
+    user = UserInfo.query.filter_by(id=uid).first()
+    if choose == 'true':
+        amodel.collect_num += 1
+        user.collect_num += 1
+        if amodel.collect_num != 1:
+            amodel.collection += ','
+        amodel.collection += uid
+        if user.collect_num != 1:
+            user.collection += ','
+        user.collection += id
+    else:
+        amodel.collect_num -= 1
+        user.collect_num -= 1
+        newli = []
+        uli = []
+        for u in split_arr(amodel.collection):
+            if u != uid:
+                newli.append(u)
+        amodel.collection = combine_arr(newli)
+        if amodel.collect_num == 0:
+            amodel.collection = ""
+        for u in split_arr(user.collection):
+            if u != id:
+                uli.append(u)
+        user.collection = combine_arr(uli)
+        if user.collect_num == 0:
+            user.collection = ""
+    db.session.commit()
+    return '427'
+

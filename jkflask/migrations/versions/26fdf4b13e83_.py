@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e06acff92c7a
+Revision ID: 26fdf4b13e83
 Revises: 
-Create Date: 2022-11-08 21:35:32.213029
+Create Date: 2022-11-20 10:15:15.504252
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e06acff92c7a'
+revision = '26fdf4b13e83'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +28,9 @@ def upgrade():
     sa.Column('uid', sa.Integer(), nullable=True),
     sa.Column('likes', sa.Integer(), nullable=True),
     sa.Column('comments', sa.Integer(), nullable=True),
+    sa.Column('likes_uid', sa.Text(length=4294967295), nullable=False),
+    sa.Column('collect_num', sa.Integer(), nullable=False),
+    sa.Column('collection', sa.Text(length=4294967295), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('CommentInfo',
@@ -39,6 +42,7 @@ def upgrade():
     sa.Column('artid', sa.Integer(), nullable=True),
     sa.Column('create_time', sa.DateTime(), nullable=True),
     sa.Column('toid', sa.Integer(), nullable=True),
+    sa.Column('likes_uid', sa.Text(length=4294967295), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('EmailInfo',
@@ -60,6 +64,8 @@ def upgrade():
     sa.Column('headshot', sa.String(length=100), nullable=True),
     sa.Column('tempshot', sa.String(length=100), nullable=True),
     sa.Column('abstract', sa.Text(length=1024), nullable=False),
+    sa.Column('collect_num', sa.Integer(), nullable=False),
+    sa.Column('collection', sa.Text(length=4294967295), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )

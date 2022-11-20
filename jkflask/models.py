@@ -14,6 +14,8 @@ class UserInfo(db.Model):
     headshot = db.Column(db.String(100), nullable=True, unique=False, default='http://127.0.0.1:5000/user/static/base')
     tempshot = db.Column(db.String(100), nullable=True, unique=False, default='http://127.0.0.1:5000/user/static/base')
     abstract = db.Column(db.Text(1024), nullable=False, unique=False, default='主人很懒，什么都没有写哦')
+    collect_num = db.Column(db.Integer, nullable=False, unique=False, default=0)
+    collection = db.Column(db.Text(4294967295), nullable=False, unique=False, default="")
 
     def __init__(self, username, password, email, vcode):
         self.username = username
@@ -46,6 +48,9 @@ class ArticalInfo(db.Model):
     uid = db.Column(db.Integer, nullable=True, unique=False)
     likes = db.Column(db.Integer, nullable=True, unique=False, default=0)
     comments = db.Column(db.Integer, nullable=True, unique=False, default=0)
+    likes_uid = db.Column(db.Text(4294967295), nullable=False, unique=False, default="")
+    collect_num = db.Column(db.Integer, nullable=False, unique=False, default=0)
+    collection = db.Column(db.Text(4294967295), nullable=False, unique=False, default="")
 
     def __init__(self, title, tags, content, uid):
         self.tags = tags
@@ -71,6 +76,8 @@ class CommentInfo(db.Model):
     create_time = db.Column(db.DateTime, default=datetime.now)
     # 评论对象
     toid = db.Column(db.Integer, nullable=True, unique=False, default=0)
+    # 记录评论的人
+    likes_uid = db.Column(db.Text(4294967295), nullable=False, unique=False, default="")
 
     def __init__(self, uid, content, fa, artid, toid):
         self.content = content
