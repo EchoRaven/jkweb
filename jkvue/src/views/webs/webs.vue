@@ -2,7 +2,9 @@
     <div>
         <div class="back">{{ this.title }}</div>
         <img id="logo" src="../../picture/mylogo.png" />
-        <img :src="headshot" id="user" v-on:click="goto_user" />
+        <div class="outer_box">
+            <img :src="headshot" id="user" v-on:click="goto_user" />
+        </div>
         <div class="artical_box">
             <div class="title_box">
                 <h2>{{ this.title }}</h2>
@@ -88,6 +90,11 @@ export default {
         params2.append('uid', this.uid);
         this.$axios.post('http://127.0.0.1:5000/user/get_userinfo', params2).then(res => {
             this.headshot = res.data['headshot'];
+            var hs = document.getElementById('user');
+            hs.style.marginLeft = ((res.data['x'] * 50 / 100)) + 'px';
+            hs.style.marginTop = ((res.data['y'] * 50 / 100)) + 'px';
+            hs.style.width = (50 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (50 * res.data['ver'] / 50) + 'px';
         });
     }, computed: {
         prop() {
@@ -157,6 +164,23 @@ export default {
 }
 </script>
 <style scoped>
+.outer_box {
+    margin-top: -50px;
+    margin-left: 1425px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    border: solid rgb(81, 255, 0) 3px;
+    overflow: hidden;
+}
+
+#user {
+    height: 50px;
+    width: 50px;
+}
+
 .title_box {
     display: flex;
 }
@@ -208,19 +232,6 @@ export default {
     width: 80px;
     border-radius: 10px;
     position: fixed;
-}
-
-#user {
-    background-size: contain;
-    margin-top: -50px;
-    margin-left: 1425px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-    position: fixed;
-    background-color: rgb(153, 227, 219);
-    text-align: center;
-    border: solid rgb(81, 255, 0) 3px;
 }
 
 .see_likes p {

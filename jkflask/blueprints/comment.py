@@ -80,6 +80,10 @@ def get_headshot():
         user = UserInfo.query.filter_by(id=uid).first()
         info['headshot'] = user.headshot
         info['username'] = user.username
+        info['x'] = user.x
+        info['y'] = user.y
+        info['hor'] = user.hor
+        info['ver'] = user.ver
     except:
         info['headshot'] = 'http://127.0.0.1:5000/user/static/base'
         info['username'] = "未登录"

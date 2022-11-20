@@ -3,7 +3,9 @@
         <div class="comment_box">
             <div class="sender">
                 <!--评论内容-->
-                <img :src="imgUrl" />
+                <div class="outer_box">
+                    <img :src="imgUrl" :id="cimg()" />
+                </div>
                 <p>{{ title_info() }}</p>
             </div>
             <p style="white-space: pre-line" class="comment_content">{{ content }}</p>
@@ -87,6 +89,11 @@ export default {
         this.$axios.post("http://127.0.0.1:5000/comment/get_sender", params).then((res) => {
             this.imgUrl = res.data['headshot'];
             this.username = res.data['username'];
+            var hs = document.getElementById(this.cimg());
+            hs.style.marginLeft = ((res.data['x'] * 25 / 100)) + 'px';
+            hs.style.marginTop = ((res.data['y'] * 25 / 100)) + 'px';
+            hs.style.width = (25 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (25 * res.data['ver'] / 50) + 'px';
         });
         let params_2 = new URLSearchParams();
         params_2.append('uid', this.toid);
@@ -162,13 +169,15 @@ export default {
                 console.log(res.data);
             });
             this.be_like = !this.be_like;
+        }, cimg() {
+            return 'cimg' + this.id;
         }
     }
 }
 </script>
 
 <style scoped>
-.sender img {
+.outer_box {
     display: block;
     width: 25px;
     height: 25px;
@@ -177,6 +186,12 @@ export default {
     border: rgb(14, 26, 203) solid;
     margin-top: 2%;
     margin-left: 1%;
+    overflow: hidden;
+}
+
+.cimg {
+    width: 25px;
+    height: 25px;
 }
 
 .sender {

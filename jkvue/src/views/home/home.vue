@@ -34,7 +34,9 @@
                     <i class="iconfont iconchazhao"></i>
                 </a>
             </div>
-            <img :src="headshot" id="user" v-on:click="goto_user" />
+            <div class="outer_box">
+                <img :src="headshot" id="user" v-on:click="goto_user" />
+            </div>
         </form>
     </div>
 </template>
@@ -80,6 +82,11 @@ export default {
         params2.append('uid', this.uid);
         this.$axios.post('http://127.0.0.1:5000/user/get_userinfo', params2).then(res => {
             this.headshot = res.data['headshot'];
+            var hs = document.getElementById('user');
+            hs.style.marginLeft = ((res.data['x'] * 50 / 100)) + 'px';
+            hs.style.marginTop = ((res.data['y'] * 50 / 100)) + 'px';
+            hs.style.width = (50 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (50 * res.data['ver'] / 50) + 'px';
         });
     },
     methods: {
@@ -266,18 +273,22 @@ body {
 
 }
 
-/*右上角小人图标(117, 230, 216*/
-#user {
-    background-size: contain;
+.outer_box {
     margin-top: 15px;
     margin-left: 1440px;
     height: 50px;
     width: 50px;
     border-radius: 50px;
     position: fixed;
-    background-color: rgb(153, 227, 219);
-    text-align: center;
+    background-color: rgb(255, 255, 255);
     border: solid rgb(81, 255, 0) 3px;
+    overflow: hidden;
+}
+
+/*右上角小人图标(117, 230, 216*/
+#user {
+    height: 50px;
+    width: 50px;
 }
 
 .search-box {

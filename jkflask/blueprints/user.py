@@ -111,6 +111,8 @@ def post_headshot():
     if request.method == 'OPTION':
         pass
     file = request.files.get('image')
+    if not file:
+        pass
     # 获取文件
     filename = str(request.form.get('uid')) + str(int(time.time()))
     savepath = basedir + filename
@@ -155,6 +157,10 @@ def get_headshot():
         info['username'] = user.username
         info['abstract'] = user.abstract
         info['collect_num'] = user.collect_num
+        info['x'] = user.x
+        info['y'] = user.y
+        info['hor'] = user.hor
+        info['ver'] = user.ver
         if info['collect_num'] == 0:
             info['collection'] = []
             info['c_art'] = []
@@ -170,6 +176,10 @@ def get_headshot():
         info['collection'] = []
         info['collect_num'] = 0
         info['c_art'] = []
+        info['x'] = 0
+        info['y'] = 0
+        info['hor'] = 50
+        info['ver'] = 50
     return json.dumps(info, ensure_ascii=False)
 
 
@@ -182,6 +192,10 @@ def ensure_headshot():
     try:
         user = UserInfo.query.filter_by(id=uid).first()
         user.headshot = user.tempshot
+        user.x = request.form.get('x')
+        user.y = request.form.get('y')
+        user.hor = request.form.get('hor')
+        user.ver = request.form.get('ver')
         db.session.commit()
         info['code'] = '420'
     except:

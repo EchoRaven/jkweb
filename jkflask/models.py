@@ -16,6 +16,10 @@ class UserInfo(db.Model):
     abstract = db.Column(db.Text(1024), nullable=False, unique=False, default='主人很懒，什么都没有写哦')
     collect_num = db.Column(db.Integer, nullable=False, unique=False, default=0)
     collection = db.Column(db.Text(4294967295), nullable=False, unique=False, default="")
+    x = db.Column(db.Integer, nullable=False, unique=False, default=0)
+    y = db.Column(db.Integer, nullable=False, unique=False, default=0)
+    hor = db.Column(db.Integer, nullable=False, unique=False, default=50)
+    ver = db.Column(db.Integer, nullable=False, unique=False, default=50)
 
     def __init__(self, username, password, email, vcode):
         self.username = username

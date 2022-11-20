@@ -5,9 +5,17 @@
             <input id="choose_p" type="file" @change="post_headshot" accept=".png, .jpg, .jpeg" />
             <button class="input_button" @click="p_input">选择图片</button>
             <p class="headtitle">头像效果</p>
-            <img :src="tempshot" class="showhead" />
+            <div class="showhead_box">
+                <img :src="tempshot" class="showhead" />
+            </div>
             <button class="closebutton" @click="closelist_c">关闭</button>
             <button class="ensurebutton" @click="closelist_e">确认</button>
+            <label class="xy">x/y</label>
+            <label class="hv">hor/ver</label>
+            <input id="hor" type="range" />
+            <input id="ver" type="range" />
+            <input id="x" type="range" />
+            <input id="y" type="range" />
         </div>
         <div id="change_abstract">
             <textarea id="change_abstract_input" placeholder="请输入新的简介" v-model="tempabstract">
@@ -51,7 +59,9 @@
                         <h3 class="article_content_title">{{ title[page] }}</h3>
                         <div class="article_author_count_box clearfix">
                             <i class="article_author_img" title="计科人">
-                                <img :src="headshot" />
+                                <div class="outer_art_hs">
+                                    <img :src="headshot" class="art_hs" />
+                                </div>
                             </i>
                             <a class="article_author" href="#">{{ username }}</a>
                             <p>发表时间：{{ create_time[page] }}</p>
@@ -83,7 +93,9 @@
                             <div @mouseenter="onMouseOver" @mouseleave="onMouseOut" @click="showlist">
                                 <i class="about_me_line"></i>
                                 <!--这个在mounted中确认-->
-                                <img :src="headshot" id="headshot" />
+                                <div class="outer_box">
+                                    <img :src="headshot" id="headshot" />
+                                </div>
                                 <p id="change_headshot">更换头像</p>
                             </div>
                         </div>
@@ -177,6 +189,25 @@ export default {
             this.collection = res.data['collection'];
             this.c_art = res.data['c_art'];
             this.collect_num = res.data['collect_num'];
+            var hs = document.getElementById('headshot');
+            hs.style.marginLeft = ((res.data['x']) * 74 / 140) + 'px';
+            hs.style.marginTop = ((res.data['y']) * 74 / 140) + 'px';
+            hs.style.width = (74 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (74 * res.data['ver'] / 50) + 'px';
+            document.getElementById('x').value = (res.data['x'] + 50);
+            document.getElementById('y').value = (res.data['y'] + 50);
+            document.getElementById('hor').value = res.data['hor'];
+            document.getElementById('ver').value = res.data['ver'];
+            hs = document.getElementsByClassName('showhead')[0];
+            hs.style.marginLeft = ((res.data['x'])) + 'px';
+            hs.style.marginTop = ((res.data['y'])) + 'px';
+            hs.style.width = (140 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (140 * res.data['ver'] / 50) + 'px';
+            hs = document.getElementsByClassName('art_hs')[0];
+            hs.style.marginLeft = ((res.data['x'] * 30 / 100)) + 'px';
+            hs.style.marginTop = ((res.data['y'] * 30 / 100)) + 'px';
+            hs.style.width = (30 * res.data['hor'] / 50) + 'px';
+            hs.style.height = (30 * res.data['ver'] / 50) + 'px';
             //这里做一个文本转化
             var ele = document.getElementById('abstract');
             ele.innerText = res.data['abstract'];
@@ -193,6 +224,26 @@ export default {
             this.ids = res.data['ids'];
             this.now_content = this.content[this.page];
             this.total_page = this.comments.length;
+        });
+        var hip = document.getElementById('hor');
+        hip.addEventListener('input', (e) => {
+            var sh = document.getElementsByClassName('showhead')[0];
+            sh.style.width = (140 / 50 * hip.value) + 'px';
+        });
+        var vip = document.getElementById('ver');
+        vip.addEventListener('input', (e) => {
+            var sh = document.getElementsByClassName('showhead')[0];
+            sh.style.height = (140 / 50 * vip.value) + 'px';
+        });
+        var xip = document.getElementById('x');
+        xip.addEventListener('input', (e) => {
+            var sh = document.getElementsByClassName('showhead')[0];
+            sh.style.marginLeft = (xip.value - 50) + 'px';
+        });
+        var yip = document.getElementById('y');
+        yip.addEventListener('input', (e) => {
+            var sh = document.getElementsByClassName('showhead')[0];
+            sh.style.marginTop = (yip.value - 50) + 'px';
         });
     }, computed: {
         prop() {
@@ -255,8 +306,22 @@ export default {
             ulist.style.filter = 'blur(0px)';
             let params = new URLSearchParams();
             params.append('uid', this.uid);
+            params.append('x', (document.getElementById('x').value - 50));
+            params.append('y', (document.getElementById('y').value - 50));
+            params.append('hor', document.getElementById('hor').value);
+            params.append('ver', document.getElementById('ver').value);
             this.$axios.post('http://127.0.0.1:5000/user/ensure_headshot', params).then(res => {
                 this.headshot = res.data['headshot'];
+                var hs = document.getElementById('headshot');
+                hs.style.marginLeft = ((document.getElementById('x').value - 50) * 74 / 140) + 'px';
+                hs.style.marginTop = ((document.getElementById('y').value - 50) * 74 / 140) + 'px';
+                hs.style.width = (74 * document.getElementById('hor').value / 50) + 'px';
+                hs.style.height = (74 * document.getElementById('ver').value / 50) + 'px';
+                hs = document.getElementsByClassName('art_hs')[0];
+                hs.style.marginLeft = ((document.getElementById('x').value - 50) * 30 / 140) + 'px';
+                hs.style.marginTop = ((document.getElementById('y').value - 50) * 30 / 140) + 'px';
+                hs.style.width = (30 * document.getElementById('hor').value / 50) + 'px';
+                hs.style.height = (30 * document.getElementById('ver').value / 50) + 'px';
             })
         },
         closelist_c() {
@@ -352,6 +417,121 @@ export default {
 </script>
 
 <style scoped>
+.outer_art_hs {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    overflow: hidden;
+}
+
+.art_hs {
+    width: 30px;
+    height: 30px;
+}
+
+.about_me_info_touxiang img {
+    width: 74px;
+    height: 74px;
+}
+
+.outer_box {
+    display: block;
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    left: 50%;
+    margin-left: -37px;
+    top: 80px;
+    margin-top: -37px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: white;
+}
+
+#headshot_box {
+    left: 550px;
+    top: 150px;
+    height: 430px;
+    width: 300px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    z-index: 1000;
+    position: fixed;
+    transition: all 0.5s;
+    opacity: 0;
+    border: 4px solid;
+    border-color: rgb(110, 109, 109);
+}
+
+#change_headshot {
+    opacity: 0;
+    transition: all 0.5s;
+    position: absolute;
+    color: black;
+    top: 70px;
+    left: 117px;
+    font-weight: bold;
+}
+
+.xy {
+    margin-top: 115px;
+    margin-left: -160px;
+    position: absolute;
+    font-weight: bold;
+}
+
+.hv {
+    margin-top: 290px;
+    margin-left: 10px;
+    position: absolute;
+    font-weight: bold;
+}
+
+.showhead_box {
+    height: 140px;
+    width: 140px;
+    border-radius: 140px;
+    border: 5px solid;
+    border-color: #004FCB;
+    position: fixed;
+    overflow: hidden;
+    margin-left: 75px;
+    margin-top: 86px;
+}
+
+.showhead {
+    height: 140px;
+    width: 140px;
+    position: absolute;
+}
+
+#hor {
+    margin-top: 235px;
+    margin-left: 80px;
+}
+
+#ver {
+    -webkit-appearance: slider-vertical;
+    margin-top: 100px;
+    margin-left: -40px;
+    position: absolute;
+}
+
+#x {
+    margin-top: 60px;
+    margin-left: -130px;
+    position: absolute;
+}
+
+#y {
+    -webkit-appearance: slider-vertical;
+    margin-top: 100px;
+    margin-left: -220px;
+    position: absolute;
+}
+
 #change_abstract_input {
     outline: none;
     border: none;
@@ -428,16 +608,6 @@ export default {
     color: rgb(83, 39, 205);
 }
 
-.showhead {
-    height: 140px;
-    width: 140px;
-    border-radius: 140px;
-    margin-top: 100px;
-    margin-left: -128px;
-    border: 5px solid;
-    border-color: #004FCB;
-    position: fixed;
-}
 
 #userbox {
     filter: blur(0px);
@@ -454,7 +624,7 @@ export default {
     transition: all 0.5s;
     border: 2px solid rgb(154, 151, 151);
     color: rgb(154, 151, 151);
-    margin-top: 270px;
+    margin-top: 320px;
     margin-left: -45px;
     position: absolute;
 }
@@ -481,7 +651,7 @@ export default {
     transition: all 0.5s;
     border: 2px solid rgb(154, 151, 151);
     color: rgb(154, 151, 151);
-    margin-top: 270px;
+    margin-top: 320px;
     margin-left: -188px;
     position: absolute;
 }
@@ -499,34 +669,6 @@ export default {
 }
 
 
-#headshot_box {
-    left: 550px;
-    top: 150px;
-    height: 370px;
-    width: 300px;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    z-index: 1000;
-    position: fixed;
-    transition: all 0.5s;
-    opacity: 0;
-    border: 4px solid;
-    border-color: rgb(110, 109, 109);
-}
-
-#change_headshot {
-    opacity: 0;
-    transition: all 0.5s;
-    position: absolute;
-    color: black;
-    top: 70px;
-    left: 117px;
-    font-weight: bold;
-}
-
-#headshot {
-    transition: all 0.5s;
-}
 
 #submit {
     width: 260px;
@@ -1506,19 +1648,7 @@ footer,
     margin-top: 20px;
 }
 
-.article_author_img {
-    display: block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    float: left;
-    overflow: hidden;
-}
 
-.article_author_img img {
-    width: 100%;
-    height: 100%;
-}
 
 .article_author {
     display: block;
@@ -1950,18 +2080,7 @@ footer,
     transform: rotate(-45deg);
 }
 
-.about_me_info_touxiang img {
-    display: block;
-    position: absolute;
-    width: 74px;
-    height: 74px;
-    left: 50%;
-    margin-left: -37px;
-    top: 80px;
-    margin-top: -37px;
-    border-radius: 50%;
-    overflow: hidden;
-}
+
 
 .about_me_text {
     background: #3c85b9;
