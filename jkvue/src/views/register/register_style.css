@@ -1,8 +1,8 @@
 
 
 @keyframes loop {
-0% { background-position: 0 6px; }
-100%{ background-position: 500px 6px;} /*500*281*/
+0% { background-position: 0 -5px; }
+100%{ background-position: 600px -5px;} /*500*281*/
  }
 
 

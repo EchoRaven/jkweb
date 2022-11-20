@@ -263,7 +263,7 @@ export default {
 }
 
 #reg_ball {
-    background: url(../../picture/earth.jpg) repeat-x 0 0;/*引入地球图片作为背景*/
+    background: url(../../picture/earth.jpg) repeat-x 0 0; background-size:600px 300px;/*引入地球图片作为背景*/
     margin-top: 150px;
     height: 300px;
     width: 300px;
@@ -279,7 +279,7 @@ export default {
 }
 /*字体修改 */
 .reg_title {
-            color:aliceblue;
+            color:rgb(73, 164, 243);
             font-size: 60px;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	        animation: focus-in-contract-bck 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;

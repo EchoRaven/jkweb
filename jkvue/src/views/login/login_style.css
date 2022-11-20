@@ -3,7 +3,7 @@ p{
     color:antiquewhite;
 }
 /*各个轨道和星球，由近及远*/
-.orbit1 .planet1
+#planet1
 {
     top: 0;
     left: 0;
@@ -12,13 +12,13 @@ p{
     margin: auto;
   	height: 10px;
   	width: 10px;
-  	background-color: rgb(166,138,56);
+  	background-color: white;
   	border-radius: 50%;
   	position: absolute;
     animation: move1 10s linear infinite;
 }
 
-.orbit1 
+#orbit1 
 {
     z-index: 0;
     left:550px;
@@ -28,14 +28,14 @@ p{
   	background-color: transparent;	/*透明，显示背景*/
   	border-radius: 50%;
   	border-style: dashed;	/*轨道类型为虚线*/
-  	border-color:aqua;
+  	border-color:white;
   	position: absolute;
-  	border-width: 1px;
+  	border-width:1px;
     transform-style: preserve-3d;
     transform: rotateZ(60deg) rotateY(70deg);
 }
        
-.orbit2 .planet2
+#planet2
 {
     top: 0;
     left: 0;
@@ -44,13 +44,13 @@ p{
     margin: auto;
   	height: 22px;
   	width: 22px;
-  	background-color: rgb(246, 97, 97);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
-  	animation: move2 5s linear infinite;
+  	animation: move2 13s linear infinite;
 }
 
-.orbit2 
+#orbit2 
 {
     z-index: 0;
   	left:500px;
@@ -60,14 +60,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(30deg) rotateY(70deg);
 }
 
-.orbit3 .planet3
+#planet3
 {
     top: 0;
     left: 0;
@@ -76,13 +76,13 @@ p{
     margin: auto;
   	height: 18px;
   	width: 18px;
-  	background-color: rgb(115,114,174);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move3 10s linear infinite;
 }
 
-.orbit3 
+#orbit3 
 {
     z-index: 0;
   	left:450px;
@@ -92,14 +92,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
       transform-style: preserve-3d;
     transform: rotateZ(60deg) rotateY(70deg);
 }
 
-.orbit4 .planet4 
+#planet4 
 {
     top: 0;
     left: 0;
@@ -108,13 +108,13 @@ p{
     margin: auto;
   	height: 15px;
   	width: 15px;
-  	background-color: rgb(46, 42, 29);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move4 15s linear infinite;
 }
 
-.orbit4 
+#orbit4 
 {
     z-index: 0;
   	left:410px;
@@ -124,14 +124,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(60deg) rotateY(70deg);
 }
 
-.orbit5 .planet5
+#planet5
 {
     top: 0;
     left: 0;
@@ -140,13 +140,13 @@ p{
     margin: auto;
   	height: 20px;
   	width: 20px;
-  	background-color: rgba(139, 212, 245, 0.949);
+  	background-color: white;
   	border-radius: 50%;
   	position: absolute;
-  	animation: move5 20s linear infinite;
+  	animation: move5 15s linear infinite;
 }
 
-.orbit5
+#orbit5
 {
     z-index: 0;
   	left:380px;
@@ -156,14 +156,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(60deg) rotateY(70deg);
 }
 
-.orbit6 .planet6 
+#planet6 
 {
     top: 0;
     left: 0;
@@ -172,13 +172,13 @@ p{
     margin: auto;
   	height: 50px;
   	width: 50px;
-  	background-color: rgb(140, 63, 117);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move6 25s linear infinite;
 }
 
-.orbit6 
+#orbit6 
 {
     z-index: 0;
     left:310px;
@@ -188,14 +188,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(60deg) rotateY(70deg);
 }
 
-.orbit7 .planet7 
+#planet7 
 {
     top: 0;
     left: 0;
@@ -204,13 +204,13 @@ p{
     margin: auto;
   	height: 30px;
   	width: 30px;
-  	background-color: rgb(63, 140, 82);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move7 40s linear infinite;
 }
 
-.orbit7 
+#orbit7 
 {
     z-index: 0;
     left:150px;
@@ -220,14 +220,14 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(80deg) rotateY(70deg);
 }
 
-.orbit7 .planet7 
+#planet7 
 {
     top: 0;
     left: 0;
@@ -236,13 +236,13 @@ p{
     margin: auto;
   	height: 30px;
   	width: 30px;
-  	background-color: rgb(63, 140, 82);
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move7 40s linear infinite;
 }
 
-.orbit8
+#orbit8
 {
     z-index: 0;
     left:10px;
@@ -252,23 +252,23 @@ p{
   	background-color: transparent;
   	border-radius: 50%;
   	border-style: dashed;
-  	border-color: gray;
+  	border-color: white;
   	position: absolute;
-  	border-width: 2px;
+  	border-width: 1px;
     transform-style: preserve-3d;
     transform: rotateZ(80deg) rotateY(70deg);
 }
 
-.orbit8 .planet8
+#planet8
 {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-  	height: 15px;
-  	width: 15px;
-  	background-color: rgb(63, 66, 140);
+  	height: 35px;
+  	width: 35px;
+  	background-color:  white;
   	border-radius: 50%;
   	position: absolute;
   	animation: move8 60s linear infinite;
@@ -347,10 +347,8 @@ p{
                 opicity:0;}
             16%{top: 20px;
                 opacity:1;}
-            80%{top:20px;
+            100%{top:20px;
                opacity:1;}
-               100%{ opacity: 0;
-            top:0}
         }
         
         @keyframes K{
@@ -362,10 +360,8 @@ p{
             }
             32%{opacity: 1;
                top:120px}
-            80%{top:120px;
+            100%{top:120px;
                opacity:1;}
-               100%{ opacity: 0;
-            top:0}
         }
         
         @keyframes W{
@@ -375,10 +371,8 @@ p{
                top:120px}
             48%{opacity: 1;
                 top:220px}
-                80%{top:220px;
+                100%{top:220px;
                opacity:1;}
-               100%{ opacity: 0;
-            top:0}
         }
         @keyframes E{
             0%{ opacity: 0;
@@ -387,20 +381,16 @@ p{
                 top:220px}
             64%{opacity: 1;
                top:320px}
-               80%{top:320px;
+               100%{top:320px;
                opacity:1;}
-            100%{ opacity: 0;
-            top:0}
         }
         @keyframes B{
             0%{ opacity: 0;
             top:320px}
             64%{opacity: 0;
                top:320px}
-            80%{opacity: 1;
+            100%{opacity: 1;
             top:420px}
-            100%{ opacity: 0;
-            top:0}
         }
         
         @keyframes down {         
@@ -416,13 +406,14 @@ p{
                 64% {                
                    transform: translate(0px, 400px);
                 }
-                80% {                
+                100% {                
                    transform: translate(0px, 500px);
                 }
         }
         /*小飞船的格式*/
-        .image{
-            animation: down 6s infinite;
+        #image{
+            animation: down 4s ;
+            animation-fill-mode:forwards;
             position:absolute;
             right:75px;
             top:0;
