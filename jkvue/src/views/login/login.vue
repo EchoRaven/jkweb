@@ -21,72 +21,38 @@
             <input class="input" type="password" id="password" placeholder="password" v-model="password">
         </form>
         <!--模拟各星球(各星球为对应的tags)围绕login公转-->
-        <div class='orbit1'>
-            <div class='planet1'>
-                <p style="transform:rotate(-60deg)">science</p>
-            </div>
-        </div>
+  			<div id='orbit1'>
+            <div id='planet1'><p style="transform:rotate(-60deg); color:cyan">Science</p></div></div>
 
-        <div class='orbit2'>
-            <div class='planet2'>
-                <p style="transform:rotate(-30deg)">study</p>
-            </div>
-        </div>
+  			<div id='orbit2'>
+  			<div id='planet2'><p style="transform:rotate(-30deg); color:aqua">Study</p></div></div>
 
-        <div class='orbit3'>
-            <div class='planet3'>
-                <p style="transform:rotate(-60deg)">work</p>
-            </div>
-        </div>
+  			<div id='orbit3'>
+  			<div id='planet3'><p style="transform:rotate(-60deg); color:aqua" >Work</p></div> </div>
 
-        <div class='orbit4'>
-            <div class='planet4'>
-                <p style="transform:rotate(-60deg)">arts</p>
-            </div>
-        </div>
+  			<div id='orbit4'>
+  			<div id='planet4'><p style="transform:rotate(-60deg); color:aqua">Arts</p></div></div>
 
 
-        <div class='orbit5'>
-            <div class='planet5'>
-                <p style="transform:rotate(-60deg)">news</p>
-            </div>
-        </div>
+  			<div id='orbit5'>
+            <div id='planet5'><p style="transform:rotate(-60deg); color:aqua">News</p></div></div>
 
-        <div class='orbit6'>
-            <div class='planet6'>
-                <p style="transform:rotate(-60deg)">math</p>
-            </div>
-        </div>
+  			<div id='orbit6'>
+  			<div id='planet6'><p style="transform:rotate(-60deg); color:aqua">Math</p></div></div>
 
-        <div class='orbit7'>
-            <div class='planet7'>
-                <p style="transform:rotate(-80deg)">phsics</p>
-            </div>
-        </div>
+  			<div id='orbit7'>
+  			<div id='planet7'><p style="transform:rotate(-80deg); color:aqua">Phsics</p></div></div>
 
-        <div class='orbit8'>
-            <div class='planet8'>
-                <p style="transform:rotate(-80deg)">cpu</p>
-            </div>
-        </div>
+             <div id='orbit8'>
+            <div id='planet8'><p style="transform:rotate(-80deg); color:aqua">Cpu</p></div></div>
         <!--下面为页面右侧的站名展示-->
-        <div
-            style="animation:J 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">
-            J</div>
-        <div
-            style="animation:K 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">
-            K</div>
-        <div
-            style="animation:W 6s infinite; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">
-            W</div>
-        <div
-            style="animation:E 6s infinite;  font: italic 2em Georgia, serif;color:aliceblue; font-size: 50px;position:absolute; right:100px;">
-            E</div>
-        <div
-            style="animation:B 6s infinite; font: italic 2em Georgia, serif; color:aliceblue; font-size: 50px;position:absolute; right:100px;">
-            B</div>
-        <div class="image">
-            <img src="../../picture/ufo.png" alt="UFO" width="80" height="80">
+       <div  style="animation:J 4s ; animation-fill-mode:forwards;font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">J</div>
+		<div  style="animation:K 4s ; animation-fill-mode:forwards;font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">K</div>
+        <div  style="animation:W 4s ;animation-fill-mode:forwards; font: italic 2em Georgia, serif; color:aliceblue ;font-size: 50px;position:absolute; right:100px;">W</div>
+        <div  style="animation:E 4s ; animation-fill-mode:forwards; font: italic 2em Georgia, serif;color:aliceblue; font-size: 50px;position:absolute; right:100px;">E</div>
+        <div  style="animation:B 4s; animation-fill-mode:forwards;font: italic 2em Georgia, serif; color:aliceblue; font-size: 50px;position:absolute; right:100px;">B</div>
+        <div id="image">
+            <img src="../../picture/ufo.png"   alt="UFO" width="80" height="80">
         </div>
     </div>
 </template>
@@ -120,7 +86,7 @@ export default {
                 params.append('username', this.username);
                 params.append('password', this.password);
                 console.log(this.username + " " + this.password);
-                this.$axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
+                this.axios.post("http://127.0.0.1:5000/user/login", params).then((res) => {
                     console.log(res.data['code'])
                     if (res.data['code'] == 405) {
                         this.tishi = "user does not exist"
@@ -166,8 +132,8 @@ export default {
                 var timer = setInterval(() => {
                     this.show_login = false;
                     if (n1 <= 25) {
-                        login_ball.style.marginTop = 150 + 'px';//由于更改了login图标的大小和初始位置，在这里也要改
-                        login_ball.style.marginLeft = 550 + 'px';
+                        login_ball.style.marginTop=150+'px';//由于更改了login图标的大小和初始位置，在这里也要改
+                        login_ball.style.marginLeft=550+'px';
                         login_ball.style.height = (300 - n1 * 10) + 'px';
                         login_ball.style.width = (300 - n1 * 10) + 'px';
                         login_ball.style.radius = (300 - n1 * 10) + 'px';
@@ -192,6 +158,15 @@ export default {
                         clearInterval(timer);
                     }
                 }, 10);
+                //隐藏星球图层
+                orbit1.style.visibility="hidden";
+                orbit2.style.visibility="hidden";
+                orbit3.style.visibility="hidden";
+                orbit4.style.visibility="hidden";
+                orbit5.style.visibility="hidden";
+                orbit6.style.visibility="hidden";
+                orbit7.style.visibility="hidden";
+                orbit8.style.visibility="hidden";
             }
             this.canclick = false;
         },
@@ -239,10 +214,8 @@ export default {
 }
 </script>
 
-<style scoped>
-@import"login_style.css";
-
-/*引入css文件 */
+<style>
+@import"login_style.css";      /*引入css文件 */
 @keyframes flashing {
     0% {
         box-shadow: 0px 0px 0px cyan;
@@ -281,8 +254,8 @@ export default {
 
 .login_title {
     z-index: 1;
-    color: aqua;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:aqua;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 50px;
 }
 

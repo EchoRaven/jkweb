@@ -30,7 +30,7 @@
         <form class="reg_form" v-show="show_b">
             <p class="Tishi" v-show="showregTishi">{{ regtishi }}</p>
             <input class="input" type="text" id="newusername" placeholder="username" v-model="username">
-            <input class="input" type="password" id="newpassword" placeholder="password" v-model="password">
+            <input class="input" type="text" id="newpassword" placeholder="password" v-model="password">
             <input class="input" type="text" id="newemail" placeholder="email" v-model="email">
             <input class="input" type="text" id="vcode" placeholder="vcode" v-model="vcode">
         </form>
@@ -69,7 +69,7 @@ export default {
                 let params = new URLSearchParams();
                 params.append('email', this.email);
                 console.log(this.email)
-                this.$axios.post("http://127.0.0.1:5000/user/mail", params).then((res) => {
+                this.axios.post("http://127.0.0.1:5000/user/mail", params).then((res) => {
                     console.log(res.data)
                     console.log(typeof res.data)
                     if (res.data == 406) {
@@ -105,7 +105,7 @@ export default {
                 params.append('password', this.password);
                 params.append('email', this.email);
                 params.append('vcode', this.vcode);
-                this.$axios.post("http://127.0.0.1:5000/user/register", params).then((res) => {
+                this.axios.post("http://127.0.0.1:5000/user/register", params).then((res) => {
                     console.log(res.data)
                     console.log(typeof res.data)
                     if (res.data == 400) {
@@ -139,22 +139,22 @@ export default {
                         n1++;
                     } else if (n2 <= 20) {
                         this.show_ball = true;
-                        reg_ball_1.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_1.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 40) {
-                        reg_ball_2.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_2.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 60) {
-                        reg_ball_3.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_3.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 80) {
-                        reg_ball_4.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_4.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 100) {
-                        reg_ball_5.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_5.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n2 <= 120) {
-                        reg_ball_6.style.marginTop = 50 + 5 * n2 + 'px';
+                        reg_ball_6.style.marginTop = 150 + 5 * n2 + 'px';
                         n2++;
                     } else if (n3 <= 40) {
                         this.show_b = true;
@@ -242,10 +242,8 @@ export default {
 }
 </script>
 
-<style scoped>
-@import"register_style.css";
-
-/*引入css文件 */
+<style>
+@import"register_style.css";      /*引入css文件 */
 @keyframes flashing {
     0% {
         box-shadow: 0px 0px 0px cyan;
@@ -265,33 +263,30 @@ export default {
 }
 
 #reg_ball {
-    background: url(../../picture/earth.jpg) repeat-x 0 0;
-    /*引入地球图片作为背景*/
-    margin-top: 50px;
+    background: url(../../picture/earth.jpg) repeat-x 0 0; background-size:600px 300px;/*引入地球图片作为背景*/
+    margin-top: 150px;
     height: 300px;
     width: 300px;
     margin-left: 550px;
     position: fixed;
     border-radius: 300px;
-    animation: flashing 2s infinite alternate, loop 20s linear infinite;
-    /*地球自转动画*/
+    animation: flashing 2s infinite alternate,loop 20s linear infinite;/*地球自转动画*/
     color: rgb(73, 64, 64);
 }
 
 .reg_form {
     position: fixed;
 }
-
 /*字体修改 */
 .reg_title {
-    color: aliceblue;
-    font-size: 60px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    animation: focus-in-contract-bck 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            color:rgb(73, 164, 243);
+            font-size: 60px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	        animation: focus-in-contract-bck 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 #reg_ball_1 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -301,7 +296,7 @@ export default {
 }
 
 #reg_ball_2 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -311,7 +306,7 @@ export default {
 }
 
 #reg_ball_3 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -321,7 +316,7 @@ export default {
 }
 
 #reg_ball_4 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -331,7 +326,7 @@ export default {
 }
 
 #reg_ball_5 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
@@ -341,13 +336,35 @@ export default {
 }
 
 #reg_ball_6 {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 550px;
     height: 50px;
     width: 50px;
     border-radius: 50px;
     position: fixed;
     animation: flashing 2s infinite alternate;
+}
+
+#username {
+    margin-top: 155px;
+    margin-left: 620px;
+    position: fixed;
+    border: none;
+    border-bottom: 2px solid rgb(154, 151, 151);
+    font-size: 30px;
+    color: rgb(154, 151, 151);
+    background-color: black;
+}
+
+#password {
+    margin-top: 255px;
+    margin-left: 620px;
+    border: none;
+    position: fixed;
+    border-bottom: 2px solid rgb(154, 151, 151);
+    font-size: 30px;
+    color: rgb(154, 151, 151);
+    background-color: black;
 }
 
 .login_form {
@@ -358,7 +375,7 @@ export default {
 }
 
 .Tishi {
-    margin-top: 5px;
+    margin-top: 90px;
     margin-left: 560px;
     height: 30px;
     width: 800px;
@@ -396,7 +413,7 @@ body {
 }
 
 #newusername {
-    margin-top: 55px;
+    margin-top: 155px;
     margin-left: 620px;
     position: fixed;
     border: none;
@@ -407,17 +424,6 @@ body {
 }
 
 #newpassword {
-    margin-top: 155px;
-    margin-left: 620px;
-    border: none;
-    position: fixed;
-    border-bottom: 2px solid rgb(154, 151, 151);
-    font-size: 30px;
-    color: rgb(154, 151, 151);
-    background-color: black;
-}
-
-#newemail {
     margin-top: 255px;
     margin-left: 620px;
     border: none;
@@ -428,8 +434,19 @@ body {
     background-color: black;
 }
 
+#newemail {
+    margin-top: 355px;
+    margin-left: 620px;
+    border: none;
+    position: fixed;
+    border-bottom: 2px solid rgb(154, 151, 151);
+    font-size: 30px;
+    color: rgb(154, 151, 151);
+    background-color: black;
+}
+
 #vcode {
-    margin-top: 455px;
+    margin-top: 555px;
     margin-left: 620px;
     border: none;
     position: fixed;
